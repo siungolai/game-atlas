@@ -1835,14 +1835,19 @@ h1 em {
   function applyTheme(t) {
     root.dataset.theme = t;
     themeIcon.textContent = t === "dark" ? "☀" : "☾";
-    try { localStorage.setItem("skdp.theme", t); } catch (_) {}
+    // 与工具索引共用同一个键，跨页切换时主题能跟过去
+    try { localStorage.setItem("atlas-theme", t); } catch (_) {}
   }
 
   (function initTheme() {
     let saved = null;
-    try { saved = localStorage.getItem("skdp.theme"); } catch (_) {}
-    // 深空当铺本属夜色：无手动记录时一律入夜
-    applyTheme(saved === "light" || saved === "dark" ? saved : "dark");
+    try { saved = localStorage.getItem("atlas-theme"); } catch (_) {}
+    // 深空当铺本属夜色：无手动记录时一律入夜。
+    // 这里只应用不写存储，否则用户只是路过这一页，
+    // 索引页的默认浅色也会被顺带改掉。
+    const t = saved === "light" || saved === "dark" ? saved : "dark";
+    root.dataset.theme = t;
+    themeIcon.textContent = t === "dark" ? "☀" : "☾";
   })();
 
   themeBtn.addEventListener("click", () => {
