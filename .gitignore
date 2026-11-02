@@ -1,0 +1,17 @@
+# Windows 系统文件
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+
+# 编辑器
+.vscode/
+.idea/
+
+# 本地预览与临时文件
+*.log
+
+# 子目录里的重复配置：仓库根目录已有一份，子目录的不要提交
+/*/.nojekyll
+/*/.gitignore
