@@ -499,10 +499,15 @@ a { color: inherit; }
   :root { --pad-x: 20px; }
   .nav { gap: 16px; padding-top: 18px; padding-bottom: 18px; }
   .nav-links { display: none; }
+  /* 链接藏起来后只剩 logo + 主题按钮，重排成两列把按钮推到最右 */
+  .nav { grid-template-columns: 1fr auto; }
   .logo-name { font-size: 16px; }
   .hero { padding-top: 40px; padding-bottom: 48px; }
   .hero h1 { letter-spacing: 2px; margin: 24px 0; }
-  .hero-sub { font-size: 16px; gap: 8px; }
+  .hero-sub { display: block; font-size: 16px; }
+  /* 改成行内流，避免窄屏下前导圆点被挤成单独一行 */
+  .hero-sub .dot-mark { margin: 0 6px; }
+  .hero-sub .dot-mark:first-child { display: none; }
   .btn { padding: 15px 24px; font-size: 15px; }
   .band-alt .wrap { padding-top: 32px; padding-bottom: 44px; }
   .section-head { flex-direction: column; align-items: flex-start; gap: 12px; }
