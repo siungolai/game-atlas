@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>游戏图鉴 · 游玩工具集</title>
-<meta name="description" content="收录在玩的游戏与模组查询工具，全部为单文件 HTML，零依赖、可离线、双击即用。">
+<meta name="description" content="收录在玩的游戏与模组查询工具，全部为独立页面，零依赖、可离线、双击即用。">
 <meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
 <meta property="og:title" content="游戏图鉴 · 游玩工具集">
-<meta property="og:description" content="收录在玩的游戏与模组查询工具，单文件 HTML，零依赖，双击即用。">
+<meta property="og:description" content="收录在玩的游戏与模组查询工具，独立页面，零依赖，双击即用。">
 <meta property="og:url" content="https://siungolai.github.io/game-atlas/">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://siungolai.github.io/game-atlas/og.png">
@@ -18,15 +18,70 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://siungolai.github.io/game-atlas/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%23C2410C'/%3E%3Ctext x='32' y='46' font-size='40' font-family='serif' text-anchor='middle' fill='%23FAF8F4'%3E%E9%89%B4%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    游戏图鉴 · 工具索引
    视觉依据：烧鹅摄影记录 · 品牌升级设计稿 v1.1
    烤鹅暖橙 #C2410C · 焦糖金 #A16207 · 墨 #1C1917 · 米白 #FAF8F4
    ============================================================ */
+
+/* ---------- 字体：本地自托管 ---------- */
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/noto-serif-sc-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/noto-serif-sc-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/noto-serif-sc-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/noto-sans-sc-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/noto-sans-sc-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/noto-sans-sc-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/noto-sans-sc-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ma Shan Zheng";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/ma-shan-zheng-400.woff2") format("woff2");
+}
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -250,6 +305,7 @@ a { color: inherit; }
   letter-spacing: 1px;
 }
 .dot-mark { color: var(--primary); }
+.hero-sub .dot-mark:first-child { display: none; }
 
 .btn-row {
   display: flex;
@@ -545,7 +601,7 @@ a { color: inherit; }
     <a href="#tools" aria-current="page">工具</a>
     <a href="https://github.com/siungolai/game-atlas" target="_blank" rel="noopener">GitHub</a>
   </nav>
-  <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题">☾</button>
+  <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题">◐</button>
 </header>
 
 <main>
@@ -555,9 +611,9 @@ a { color: inherit; }
     <h1>星海尽头，<br>替你把<em>谱</em>翻出来</h1>
     <div class="hero-sub">
       <span class="dot-mark" aria-hidden="true">·</span>
-      <span>单文件 HTML</span>
+      <span>零依赖</span>
       <span class="dot-mark" aria-hidden="true">·</span>
-      <span>零依赖 · 断网可用</span>
+      <span>断网可用 · 双击即开</span>
     </div>
     <div class="btn-row">
       <a class="btn btn-primary" href="./深空当铺/">进入深空当铺 <span aria-hidden="true">→</span></a>
@@ -628,7 +684,7 @@ a { color: inherit; }
   </div>
   <div class="footer-bottom">
     <span>© 2025-2026 烧鹅濑酱 · 游戏图鉴</span>
-    <span>GitHub Pages · 单文件零依赖</span>
+    <span>GitHub Pages · 零依赖</span>
   </div>
 </footer>
 
@@ -648,7 +704,7 @@ a { color: inherit; }
 
   function apply(next, persist) {
     root.dataset.theme = next;
-    btn.textContent = next === "dark" ? "☾" : "☀";
+    btn.textContent = next === "dark" ? "◐" : "☀";
     btn.setAttribute("aria-label", next === "dark" ? "切换到日间模式" : "切换到夜间模式");
     if (persist) {
       try { localStorage.setItem("atlas-theme", next); } catch (e) {}

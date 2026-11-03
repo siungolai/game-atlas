@@ -18,16 +18,71 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://siungolai.github.io/game-atlas/og-brew.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23C2410C'/%3E%3Cpath d='M20 23h24l-4 17a7 7 0 0 1-7 6h-2a7 7 0 0 1-7-6z' fill='%23FAF8F4'/%3E%3Crect x='25' y='50' width='14' height='4' rx='2' fill='%23FAF8F4'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    深空当铺 · 酿酒谱
-   单文件应用：数据内嵌，零外部依赖，双击即可运行
+   独立页面：数据内嵌，字体随仓库分发，零外部依赖，双击即可运行
    视觉依据：烧鹅摄影记录 · 品牌升级设计稿 v1.1
    烤鹅暖橙 #C2410C · 焦糖金 #A16207 · 墨 #1C1917 · 米白 #FAF8F4
    ============================================================ */
+
+/* ---------- 字体：本地自托管 ---------- */
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/noto-serif-sc-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/noto-serif-sc-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/noto-serif-sc-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/noto-sans-sc-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/noto-sans-sc-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/noto-sans-sc-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/noto-sans-sc-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ma Shan Zheng";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ma-shan-zheng-400.woff2") format("woff2");
+}
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -1839,7 +1894,7 @@ h1 em {
 
   function applyTheme(t) {
     root.dataset.theme = t;
-    themeIcon.textContent = t === "dark" ? "☀" : "☾";
+    themeIcon.textContent = t === "dark" ? "☀" : "◐";
     // 与工具索引共用同一个键，跨页切换时主题能跟过去
     try { localStorage.setItem("atlas-theme", t); } catch (_) {}
   }
@@ -1852,7 +1907,7 @@ h1 em {
     // 索引页的默认浅色也会被顺带改掉。
     const t = saved === "light" || saved === "dark" ? saved : "dark";
     root.dataset.theme = t;
-    themeIcon.textContent = t === "dark" ? "☀" : "☾";
+    themeIcon.textContent = t === "dark" ? "☀" : "◐";
   })();
 
   themeBtn.addEventListener("click", () => {

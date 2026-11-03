@@ -1,6 +1,6 @@
 # 游戏图鉴 · Game Atlas
 
-收录我在玩的游戏与模组的查询工具。每一份都是**单文件 HTML**，零依赖、可离线、双击即用。
+收录我在玩的游戏与模组的查询工具。每一份都是**零依赖的独立页面**：不连任何 CDN、不需要构建、双击就能用，字体随仓库一起分发，连同 `fonts/` 拷走即可离线运行。
 
 **线上地址**：<https://siungolai.github.io/game-atlas/>
 
@@ -15,6 +15,8 @@
 ```
 game-atlas/
 ├── index.html          # 工具索引页（新工具在这里挂一张卡片）
+├── fonts/              # 自托管字体子集：Noto Serif SC / Noto Sans SC / Ma Shan Zheng
+├── tools/              # 字体子集生成 + 离线可用性校验
 ├── 深空当铺/            # 一个游戏一个目录
 │   ├── index.html      # 该游戏的工具页（可直接访问 /深空当铺/）
 │   └── README.md       # 该工具的说明
@@ -42,10 +44,27 @@ game-atlas/
 
 clone 或下载后，直接双击 `index.html` 打开即可，不需要任何服务器。
 
+字体从 `fonts/` 读取，**不要只拷走单个 HTML 文件**，否则标题会回退成系统字体。
+
+## 维护
+
+改文案后如果出现子集里没有的字，重新生成字体子集：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\build-fonts.ps1
+```
+
+提交前跑一次离线校验（外部引用、字符覆盖、字体体积三项）：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\check-offline.ps1
+```
+
 ## 部署
 
 GitHub Pages，从 `main` 分支根目录发布。推送后约 30 秒自动更新。
 
 ## 更新日志
 
+- **2026-11-03** 字体本地化：两页移除 Google Fonts 运行时依赖，改由 `fonts/` 自托管子集（8 个字重，691.9 KB）；新增字体子集生成与离线校验脚本。
 - **2026-11-02** 首次发布：仓库改为多游戏结构，新增工具索引页；深空当铺 51 条酒谱上线。

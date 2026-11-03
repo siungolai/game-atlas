@@ -2,7 +2,7 @@
 
 对应 Steam 创意工坊「[酿酒拓展 | Brewing Expansion](https://steamcommunity.com/sharedfiles/filedetails/?id=3829730904)」，所属 **Outer Ring District**（外环区）。
 
-单文件 HTML，零依赖，双击 `index.html` 即用。
+零依赖的独立页面，字体随仓库分发，双击 `index.html` 即用。
 
 **线上**：<https://siungolai.github.io/game-atlas/深空当铺/>
 
