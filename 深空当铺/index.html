@@ -1563,13 +1563,19 @@ h1 em {
 
   /* ---------- 材料库 ---------- */
   function renderPantry() {
-    // 兼容性提示的基准：固定模式下看另一侧（锁定一格、切另一格），自动模式下看已选材料
-    const anchor = state.mode === "left"  ? state.slots[1]
-                 : state.mode === "right" ? state.slots[0]
-                 : null;
+    // 兼容性提示的基准：
+    //   自动模式 —— 槽里已选的全部材料；
+    //   固定模式 —— 优先取「另一侧」（点选只改本侧，另一侧才是已定的那份），
+    //              另一侧还空着时退回本侧已选的材料，这样只放了一味也能看到搭配提示
+    const other = state.mode === "left"  ? state.slots[1]
+                : state.mode === "right" ? state.slots[0]
+                : null;
+    const mine  = state.mode === "left"  ? state.slots[0]
+                : state.mode === "right" ? state.slots[1]
+                : null;
     const picked = state.mode === "auto"
       ? state.slots.filter(Boolean)
-      : (anchor ? [anchor] : []);
+      : (other ? [other] : (mine ? [mine] : []));
     // 重绘前记住正在操作的材料，避免键盘用户丢失焦点
     const focused = document.activeElement && document.activeElement.dataset
       ? document.activeElement.dataset.mat
