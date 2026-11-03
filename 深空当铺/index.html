@@ -690,6 +690,15 @@ h1 em {
   white-space: pre-line;
 }
 
+/* Item icons: 32x32 source art scaled down to sit with the text */
+.ico {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.12em;
+  margin-right: .35em;
+  image-rendering: pixelated;
+}
+
 .partners {
   display: flex;
   flex-wrap: wrap;
@@ -1629,6 +1638,95 @@ h1 em {
     { n: "海蓝幻梦", tag: "收藏酒" },
   ];
 
+  // Item icons: 32x32 PNGs shipped in icons/, keyed by display name
+  // (alt is empty on purpose: the page charset must not grow, the font subset follows it)
+  const ICON = {
+    "辣椒": "be_chili_fruit.png",
+    "水稻": "be_rice_fruit.png",
+    "小麦": "be_wheat_fruit.png",
+    "苦艾草": "be_wormwood_fruit.png",
+    "花椒": "be_sichuan_pepper_fruit.png",
+    "柠檬": "be_lemon_fruit.png",
+    "黄葡萄": "be_yellow_grape_fruit.png",
+    "甘蔗": "be_sugarcane_fruit.png",
+    "黄瓜": "be_cucumber_fruit.png",
+    "荔枝": "be_lychee_fruit.png",
+    "茉莉花": "be_jasmine_fruit.png",
+    "青提": "be_green_grape_fruit.png",
+    "桂花": "be_osmanthus_fruit.png",
+    "杨梅": "be_bayberry_fruit.png",
+    "虚空李": "be_void_plum_fruit.png",
+    "星尘莓": "be_stardust_berry_fruit.png",
+    "珍妮莫罗": "be_jeanne_moreau_fruit.png",
+    "辣椒酒": "be_chili_wine.png",
+    "米酒": "be_rice_wine.png",
+    "啤酒": "be_wheat_wine.png",
+    "苦艾酒": "be_wormwood_wine.png",
+    "花椒酒": "be_sichuan_pepper_wine.png",
+    "柠檬酒": "be_lemon_wine.png",
+    "白兰地酒": "be_yellow_grape_wine.png",
+    "朗姆酒": "be_sugarcane_wine.png",
+    "黄瓜酒": "be_cucumber_wine.png",
+    "荔枝酒": "be_lychee_wine.png",
+    "夜香浮雪": "be_jasmine_wine.png",
+    "霜凝青提": "be_green_grape_wine.png",
+    "桂魄流金": "be_osmanthus_wine.png",
+    "绛珠凝露": "be_bayberry_wine.png",
+    "坠羽晨雾": "be_void_plum_wine.png",
+    "余光未冷": "be_stardust_berry_wine.png",
+    "故穗": "be_gusui_wine.png",
+    "赤麻渡": "be_chimadu_wine.png",
+    "酸甜半盏": "be_suantian_banzhan_wine.png",
+    "碧珀流光": "be_bipo_liuguang_wine.png",
+    "半盏酸苦": "be_banzhan_suanku_wine.png",
+    "稻珀双甘": "be_daopo_shuanggan_wine.png",
+    "麦甘酿": "be_maigan_niang_wine.png",
+    "荔枝糯米冰酿": "be_lychee_rice_wine.png",
+    "箬叶幽香": "be_lychee_wormwood_wine.png",
+    "清荔流霞": "be_lychee_chili_wine.png",
+    "茉香米酿": "be_moxiang_miniang_wine.png",
+    "茉柠清晓": "be_moning_qingxiao_wine.png",
+    "花蔗流年": "be_huazhe_liunian_wine.png",
+    "碧麦流金": "be_bimai_liujin_wine.png",
+    "翠玉清珠": "be_cuiyu_qingzhu_wine.png",
+    "紫露金风": "be_zilu_jinfeng_wine.png",
+    "茉莉青提": "be_moli_qingti_wine.png",
+    "桂信迟酸": "be_guixin_chisu_wine.png",
+    "绛痕沉蔗": "be_jianghen_chenzhe_wine.png",
+    "灼泪衔丹": "be_zhuolei_xiandan_wine.png",
+    "错季书": "be_cuoji_shu_wine.png",
+    "沉渊米酿": "be_chenyuan_miniang_wine.png",
+    "空谷苦艾": "be_konggu_kuai_wine.png",
+    "星落麦田": "be_xingluo_maitian_wine.png",
+    "冷星入盏": "be_lengxing_ruzhan_wine.png",
+    "夜香沉寂": "be_yexiang_chenji_wine.png",
+    "星坠青藤": "be_xingzhui_qingteng_wine.png",
+    "星尘挽歌": "be_xingchen_wange_wine.png",
+    "杂酿": "be_misc_wine.png",
+    "异调": "be_yidiao_wine.png",
+    "错付": "be_cuofu_wine.png",
+    "余烬": "be_yujin_wine.png",
+    "玉兔衔桂": "be_midautumn_osmanthus_wine.png",
+    "念何事": "be_nian_heshi_wine.png",
+    "青隙留春": "be_qingxi_liuchun_wine.png",
+    "雾笺留白": "be_wujian_liubai_wine.png",
+    "荔语微甜": "be_jiangyuan_xiangfeng_wine.png",
+    "青提微风": "be_qingti_weifeng_wine.png",
+    "茉白清露": "be_mobai_qinglu_wine.png",
+    "蜜金晚照": "be_mijin_wanzhao_wine.png",
+    "洁瓣余息": "be_jieban_yuxi_wine.png",
+    "霓虹残梦": "be_neon_dream_wine.png",
+    "双清酿": "be_shuangqing_wine.png",
+    "南风旧酿": "be_nanfeng_wine.png",
+    "绯莓春酿": "be_feimei_wine.png",
+    "霓虹幻梦": "be_neon_illusion_wine.png",
+    "理想的尽头": "be_ideal_end_wine.png",
+    "罗浮梦": "be_luofu_dream_wine.png",
+    "神奇猪猪": "be_magic_pig_wine.png",
+    "海蓝幻梦": "be_sea_blue_wine.png",
+    "彩虹配方": "be_rainbow_recipe_wine.png",
+  };
+
   const BY_BOOK = BOOKS.map(b => ({
     ...b,
     items: RECIPES.filter(r => r.book === b.id)
@@ -1677,6 +1775,14 @@ h1 em {
   function descHTML(name) {
     const d = WINE_DESC[name];
     return d ? '<p class="wdesc">' + esc(d) + "</p>" : "";
+  }
+
+  // Item icon: 32x32 PNG scaled to 1em by CSS. alt stays empty so the page
+  // charset never grows (the font subset is built from the page text).
+  function iconHTML(name) {
+    const f = ICON[name];
+    if (!f) return "";
+    return '<img class="ico" src="icons/' + f + '" alt="" width="16" height="16">';
   }
 
   // 判定：返回 { state, ... }
@@ -1751,7 +1857,7 @@ h1 em {
     el.matNote.hidden = !matDesc;
     if (matDesc) {
       el.matNote.innerHTML =
-        '<span class="mn-name" style="color:var(--' + CAT_OF[cur] + ')">' + esc(cur) + "</span>" +
+        '<span class="mn-name" style="color:var(--' + CAT_OF[cur] + ')">' + iconHTML(cur) + esc(cur) + "</span>" +
         '<span class="mn-text">' + esc(matDesc) + "</span>";
     }
   }
@@ -1799,7 +1905,7 @@ h1 em {
           <div class="pairs">${ra === rb
             ? `${esc(ra)}<i>×2</i>`
             : `${esc(ra)}<i>＋</i>${esc(rb)}`}</div>
-          <div class="outcome">${esc(r.recipe.out)}</div>
+          <div class="outcome">${iconHTML(r.recipe.out)}${esc(r.recipe.out)}</div>
           ${descHTML(r.recipe.out)}
           <span class="badge is-ok">有据 · ${esc(b.title)}</span>
           <p class="quote">${esc(b.note)}</p>
@@ -1811,7 +1917,7 @@ h1 em {
       html = `
         <div class="verdict-body">
           <div class="pairs">${esc(r.a)}<i>＋</i>${esc(r.b)}</div>
-          <div class="outcome is-fail">${esc(r.out)}</div>
+          <div class="outcome is-fail">${iconHTML(r.out)}${esc(r.out)}</div>
           ${descHTML(r.out)}
           <span class="badge is-warn">错配 · ${r.deducted ? "跨域推演" : esc(CATS[r.cat].name) + "错配"}</span>
           <p class="note">${esc(catName)} 于谱上无名，落为「${esc(r.out)}」。<br>${r.deducted ? "跨域无谱者，推演作异调。" : "同域错配，成该域之失败酒。"}</p>
@@ -1854,7 +1960,7 @@ h1 em {
             const compat = picked.length > 0 && picked.every(p => findRecipe(p, m.n));
             return `<button class="mat${on ? " is-on" : ""}" type="button"
                       data-mat="${esc(m.n)}" data-compat="${compat ? 1 : 0}"
-                      title="${esc(m.n)}${compat && picked.length ? " · 与已选可配" : ""}">${esc(m.n)}</button>`;
+                      title="${esc(m.n)}${compat && picked.length ? " · 与已选可配" : ""}">${iconHTML(m.n)}${esc(m.n)}</button>`;
           }).join("")}
         </div>
       </div>`).join("");
@@ -1929,7 +2035,7 @@ h1 em {
         <ul class="rel-list">
           ${items.map(w => `
             <li>
-              <b class="rel-name">${mark(w.n, q)}</b>
+              <b class="rel-name">${iconHTML(w.n)}${mark(w.n, q)}</b>
               <i class="rel-tag">${esc(w.tag || "收藏酒")}</i>
               ${descHTML(w.n)}
             </li>`).join("")}
@@ -1970,7 +2076,7 @@ h1 em {
                   <span class="dot ${f.cat}"></span>
                   <span>${esc(f.label)}</span>
                   <span class="arrow">→</span>
-                  <span class="r-out">${esc(f.out)}</span>
+                  <span class="r-out">${iconHTML(f.out)}${esc(f.out)}</span>
                 </li>`).join("")}
             </ul>
             <p class="book-note">${esc(b.note)}</p>
@@ -1992,7 +2098,7 @@ h1 em {
                   <span class="r-in">${mark(r.a, q)}${r.a === r.b ? "<em>×2</em>" : ""}</span>
                   ${r.a === r.b ? "" : `<span class="r-in">${mark(r.b, q)}</span>`}
                   <span class="arrow">→</span>
-                  <span class="r-out">${mark(r.out, q)}</span>
+                  <span class="r-out">${iconHTML(r.out)}${mark(r.out, q)}</span>
                 </button>
               </li>`).join("")}
           </ul>
