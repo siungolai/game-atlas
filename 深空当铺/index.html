@@ -569,6 +569,30 @@ h1 em {
 }
 .slot-swap:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+/* 材料槽下方的一行材料说明：未选材料时整行隐藏 */
+.mat-note {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 12px 2px 0;
+  font-size: 12px;
+  line-height: 1.75;
+  letter-spacing: .3px;
+  color: var(--dim);
+}
+.mat-note[hidden] { display: none; }
+.mn-name {
+  flex: none;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+.mn-name::after {
+  content: "—";
+  margin-left: 6px;
+  color: var(--line-2);
+  font-weight: 400;
+}
+
 /* ============================================================
    判定区
    ============================================================ */
@@ -652,6 +676,18 @@ h1 em {
   font-size: 13px;
   letter-spacing: .5px;
   color: var(--dim-2);
+}
+
+/* 官方风味文案：原文里的 \n 交给 pre-line 断行，不要连成一坨 */
+.wdesc {
+  max-width: 100%;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 13px;
+  line-height: 1.9;
+  letter-spacing: .3px;
+  color: var(--dim);
+  white-space: pre-line;
 }
 
 .partners {
@@ -1061,6 +1097,96 @@ h1 em {
   text-align: right;
 }
 
+/* ---------- 藏品酒（默认收起，检索命中时自动展开） ---------- */
+.reliquary {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel-2);
+  overflow: hidden;
+}
+.reliquary > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 16px 18px;
+  cursor: pointer;
+  list-style: none;
+  transition: background .2s var(--ease);
+}
+.reliquary > summary::-webkit-details-marker { display: none; }
+.reliquary > summary::before {
+  content: "＋";
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dim-2);
+}
+.reliquary[open] > summary::before { content: "－"; }
+.reliquary[open] > summary { border-bottom: 1px solid var(--line); }
+.reliquary > summary:hover { background: var(--accent-soft); }
+.reliquary > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.reliquary > summary h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text);
+}
+.reliquary > summary p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--dim-2);
+}
+.reliquary > summary .num {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  color: var(--dim-2);
+  white-space: nowrap;
+}
+
+.rel-list {
+  list-style: none;
+  margin: 0;
+  padding: 2px 18px 16px;
+}
+.rel-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 10px;
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+}
+.rel-list li:first-child { border-top: 0; }
+.rel-name {
+  min-width: 0;
+  font-family: var(--serif);
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--text);
+}
+.rel-tag {
+  justify-self: end;
+  font-style: normal;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  color: var(--dim-2);
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 2px 9px;
+  white-space: nowrap;
+}
+.rel-list .wdesc {
+  grid-column: 1 / -1;
+  margin-top: 3px;
+  font-size: 12.5px;
+}
+
 .empty {
   margin: 0;
   padding: 40px 0;
@@ -1128,6 +1254,9 @@ h1 em {
   .recipe { font-size: 13px; padding: 8px 6px; }
   .r-out { padding-left: 6px; }
   .book { padding: 14px; }
+  .reliquary > summary { padding: 14px; }
+  .rel-list { padding: 2px 14px 14px; }
+  .mat-note { font-size: 11.5px; }
   .foot { padding-top: 24px; padding-bottom: 32px; }
 }
 
@@ -1209,6 +1338,8 @@ h1 em {
         <span class="slot-clear" data-clear="1" role="button" tabindex="-1" aria-label="清空右槽" hidden>×</span>
       </div>
     </div>
+
+    <p class="mat-note" id="matNote" aria-live="polite" hidden></p>
 
     <div class="verdict" id="verdict" aria-live="polite"></div>
 
@@ -1304,7 +1435,7 @@ h1 em {
     { id: "m",    title: "凡间单酿", sub: "凡间果实的单配方。",                       note: "——凡间有凡间的味道。" },
     { id: "mm",   title: "凡间双穗", sub: "两种凡间果实的合酿。",                     note: "——凡间与凡间的相逢。" },
     { id: "f",    title: "远来之酿", sub: "远来果实的单配方。",                       note: "——上层区捎来的味道。" },
-    { id: "x",    title: "远凡交汇", sub: "远来果实与凡间果实的合酿。",               note: "——落款残佚。" },
+    { id: "x",    title: "远凡交汇", sub: "远来果实与凡间果实的合酿。",               note: "——一个从远方来，一个从近处生。" },
     { id: "ff",   title: "双远合酿", sub: "两种远来果实的合酿。",                     note: "——远来的花遇见远来的果。" },
     { id: "s",    title: "情思手记", sub: "情思果实的配方。",                         note: "——所有的等，都酿成了酒。" },
     { id: "g",    title: "遗光残页", sub: "遗光果实的配方。",                         note: "——所有告别都是延迟的引力。" },
@@ -1388,6 +1519,116 @@ h1 em {
     { cat: "glow",    label: "遗光材料错配", out: "余烬" }
   ];
 
+  /* ===== 官方文案：来自工坊模组 酿酒拓展 3.6.7.4 Localization/zh.csv ===== */
+
+  // 67 款酒的官方风味文案（键为酒名，\n 为游戏中显示的换行）
+  const WINE_DESC = {
+    "白兰地酒": "以黄葡萄酿成的烈性果酒，色泽琥珀，被上层区视为珍品。年份越久越昂贵。",
+    "半盏酸苦": "苦味只配半盏——多一口，人就只记得苦。",
+    "碧麦流金": "青提清甜，小麦微苦。一杯里同时有甜有苦，才喝得下去一辈子。",
+    "碧珀流光": "黄葡萄的琥珀，黄瓜的碧玉，同在一杯里流转。下层区的夏夜，最凉快的一口。",
+    "彩虹配方": "敬为酿酒mod制作了两款优质拓展的hollow。",
+    "沉渊米酿": "米饭沉进深渊，捞起来的是想念。",
+    "赤麻渡": "边境站的人叫它「渡」。一口从痛苦渡到麻木，从清醒渡到梦乡。渡人，也渡己。",
+    "翠玉清珠": "青提和黄瓜，都是清物。因为它们不争，才能在夏天活下来。",
+    "错付": "她把一整年的花都酿进去了，可那个人从来不喝这种酒。",
+    "错季书": "用盛夏最后的杨梅，接住初秋第一枝桂花。他守不住诺言，她等白了头——本应错过的两个人，因酿酒人的执念，在这坛酒里重逢。",
+    "稻珀双甘": "米香清，葡萄甜。一个淡，一个浓，双甘交汇。下层区老太太们的私藏配方。",
+    "绯莓春酿": "草莓是春天最柔软的那一口甜。\n\n红得张扬，甜得直接，不掺任何杂质。\n\n酿成酒，颜色像被春日的晚霞染过。\n\n调酒师说，这酒不讲道理——它就是甜，就是要让人想起某个春天的下午，和某个笑得很好看的人。\n\n——x",
+    "故穗": "每个空间站居民都记得地球的麦田和稻田。酿酒师把两种穗子一起酿，叫「故穗」。",
+    "桂魄流金": "那年桂花开时，她折一枝别在我襟前，说：等你回来，一同酿酒。\n\n我去了边境。那一仗没打完，我就死在了关外，她一直不知道。\n\n后来每年桂花开，她都酿一坛，等一个再也不会回来的人。",
+    "桂信迟酸": "那年襟前的桂花早已枯成信笺的颜色，诺言却比花期还短。",
+    "海蓝幻梦": "海是什么颜色的？\n\n有人说蓝，有人说绿，有人说它根本没有颜色，只是反射了天空。\n\n这瓶酒也一样——在不同的光线下，它会呈现不同的蓝。\n\n喝下去，像喝下一整片海。\n\n调酒师说，这酒适合一个人喝，因为大海从来都是孤独的。\n\n——一切随缘",
+    "花椒酒": "麻香四溢的烈酒，入喉酥麻。只有真正的老饕才懂它的妙处。",
+    "花蔗流年": "花一茬，蔗一节；流年不是一天过去的。",
+    "黄瓜酒": "带着清冽草木香的淡绿酒液，入口清凉，回味微苦。据说下层区的老农夫会在盛夏午后独饮一杯。",
+    "绛痕沉蔗": "他说来年桂花开时便回，她便用甘蔗的甜去哄骗杨梅的酸。",
+    "绛珠凝露": "杨梅熟透的那个夏天，他说：来年桂花开时便回。\n\n我一坛一坛地酿，从夏到秋，从秋到冬。桂花开了又落，杨梅红了又淡，我的头发也白了。\n\n最后等来的不是他，是一份死讯。",
+    "洁瓣余息": "两朵珍妮莫罗酿成的浅粉花酒，清淡的花香在杯口停了很久。花期很短，等候却不必随它结束。把这一瓶留在柜里，就像替 Lumos 留住一朵还没有谢的花。",
+    "空谷苦艾": "空谷没有回声，苦艾替它答了一句。",
+    "苦艾酒": "以苦艾草酿成，带有浓郁的草本香气。传说喝多了会产生幻觉，因此在上层区被明令禁止。",
+    "辣椒酒": "用辣椒酿成的烈酒，入口火辣，回味却带一丝甘甜。下层区的工人喜欢在夜班前来一杯暖身。",
+    "朗姆酒": "以甘蔗酿成的甜酒，是水手和走私客的最爱。一瓶下肚，什么话都敢说。",
+    "冷星入盏": "星星落进杯里，凉了一整夜；举杯的人先冷。",
+    "理想的尽头": "原料为产自无名教堂废墟上的紫荆花丛，入口甘甜无比但带有莫名的回苦，酿造人与配方在内战中化作灰烬，一如她那未竟之梦。\n\n——TYskyrim_***",
+    "荔语微甜": "甜话不必多，荔枝说一句，就够半盏。",
+    "荔枝酒": "以荔枝酿成的甜香果酒，入口如蜜，回味悠长。是上层区宴席上的常客。",
+    "荔枝糯米冰酿": "xuxu的最爱，荔枝与糯米相遇，米香清甜如夏夜凉风。",
+    "罗浮梦": "尝闻有地名为『罗浮』，凡失意者于其梅下醉卧，梦中皆得所求。惜好梦易醒，终一场镜花水月…\n\n——玄宇",
+    "麦甘酿": "麦香淡，甘蔗甜。淡里藏甜，藏住一整年。",
+    "米酒": "以大米酿制的甜酒，醇厚柔和。据说最早是下层区的老太太们用来招待客人的私房酒。",
+    "蜜金晚照": "黄葡萄与甘蔗合酿的金蜜色酒液，甜香温润，像被装进瓶里的晚照。xuxu说，外环区的日落总被高墙挡住，所以替大家留了一瓶。一天再长，喝到最后，也该有一点属于自己的甜。",
+    "茉白清露": "茉莉花与黄瓜合酿的浅白酒液，清凉里浮着一缕花香。蓝白的瓶身像清晨还没散尽的雾，XUXU的字样藏在雾里。忙完夜班的人捧着它，终于有时间听一听窗边的滴水声。",
+    "茉莉青提": "茉莉是夜里开的花，青提是霜降才甜的果。最干净的味道，是一个人在深夜想起另一个人的时候。",
+    "茉柠清晓": "茉莉守夜，柠檬等亮；清晓是它们换班的时候。",
+    "茉香米酿": "茉莉配米酿，是下层区老太太们的秘方。甜的米酒让人昏沉，香的茉莉让人清醒。",
+    "南风旧酿": "开坛时有海风与椰香。\n\n适合故人重逢，也适合独自喝完。\n\n——痣",
+    "霓虹残梦": "一瓶没有配方的酒。\n\n霓虹灯照在玻璃上，颜色就渗进去了。它不属于任何一棵树，也不属于任何一场丰收。\n\n调酒师说，这是所有酿错的酒最后去的地方——它们不是失败了，只是没有等到对的人。\n\n如果你在某个深夜喝到它，别问它从哪来。问你自己，想去哪。",
+    "霓虹幻梦": "霓虹灯在城市上空亮起，红的、蓝的、紫的，像一场醒不过来的梦。\n\n酒液在杯中折射出诡异的光，一杯下去，你会看见未来。\n\n不过调酒师警告说：看见的，不一定是真的。\n\n霓虹的尽头，是清醒，还是更深的迷幻？\n\n——Nigzer",
+    "念何事": "酿酒的学问从来容不下自负。这名年长的匠人浸淫酿酒数年，认定自己早已吃透所有发酵规律，不屑查阅笔记、不屑亲自尝试，觉得自己什么都知道，于是凭着盲目的自信大刀阔斧地重写配方。\n\n他坚信自己的改良会诞生传世佳酿，可傲慢蒙蔽了判断，发酵彻底失控，混合物发生了无法预料的异变，没有醇香，只生成了这瓶不可描述的可怕酒。\n\n酒体浑浊暗沉，气味混杂着酸腐与刺鼻的怪味。这瓶独特的酒也留在了历史的长河里，更印证一件事：就算懂得再多，也不能轻视酿造的力量。\n\n最后这位神秘人只留下一句话:为什么桂花加荔枝酿出来了荔枝酒————1.0版本小彩蛋",
+    "柠檬酒": "清冽酸甜，适合冰镇饮用。上层区的贵妇们把它当作消暑的雅致饮品。",
+    "啤酒": "用小麦酿造的饮品，清爽微苦，是下层区最常见的平民酒。",
+    "青提微风": "风穿过青提，把酸吹淡，把夏天吹短。",
+    "青隙留春": "青提与苦艾草合酿的淡绿酒液，先是清甜，随后才尝见草木的微苦。外环区的窗缝太窄，春天只能挤进一线。他把那一线绿留在瓶里，说：等你来，冬天就算过去了。",
+    "清荔流霞": "荔枝的甜，辣椒的火，晚霞一样烧到杯底。",
+    "箬叶幽香": "艾情好苦让我怎么荔枝。",
+    "神奇猪猪": "猪才是这个世界上最可爱的生物！\n\n——#",
+    "双清酿": "梅竹双清，本是文人画里最常见的题材。\n\n竹有节，宁折不弯；梅有骨，凌寒独开。\n\n一个不肯低头，一个不肯认输。\n\n酿成酒，入口是竹叶的清苦，回味是梅花的暗香。\n\n喝的人说，这酒喝的不是味道，是一口气。\n\n——Dream",
+    "霜凝青提": "青提是上层区阳台上唯一能活的果树。霜降那天摘下的青提最甜，因为冷过一次的甜才够沉。",
+    "酸甜半盏": "半盏是酸，半盏是甜；端平了，才叫过日子。",
+    "雾笺留白": "茉莉花与小麦合酿的浅白酒液，花香很轻，麦香却久久不散。她在起雾的清晨写了封信，末尾留着一行空白。不是忘了落款，是想让回来的人亲手填上。",
+    "星尘挽歌": "空间站的葬礼与地面不同。金属棺从减压舱推出去的时候，整片夜空都亮了一下。所有告别都是延迟的引力。",
+    "星落麦田": "星星落在麦田里，麦子替它亮了一夜。",
+    "星坠青藤": "星尘莓是夜空中残留的光，青提是阳台上挂着的第一串果。",
+    "夜香沉寂": "花香落尽，夜才真的静下来。",
+    "夜香浮雪": "上层区的花园里，茉莉只在夜里开。花开的时候，整条巷子都是香的，可天亮之前就谢了。酿这酒的人说，茉莉不是给白天喝的，是给夜里睡不着的人喝的。",
+    "异调": "远道而来的东西，调不到一处去。不是所有远来的都该见面。",
+    "余光未冷": "酒液蓝紫，只在烛光下才显出极细的银星，像把一整片夜空沉进了杯底。",
+    "余烬": "空间站的葬礼后，调酒师把两颗果实放进同一只瓶，可他忘记了配方。这杯酒，敬所有连告别都没能好好说出口的人。",
+    "玉兔衔桂": "以月华桂与月华桂同酿——不掺凡间一粒尘。\n\n酒液金黄，盛在杯里像盛了一小片秋天。\n\n杯底沉着几粒桂花，据说饮到最后，能看见一只小兔子，从月亮上俯下身来。\n\n「桂子月中落，天香云外飘」——说的就是这一杯。",
+    "杂酿": "混在一起，什么都没酿成。倒出来是浑浊的，闻起来有一股说不清的甜。",
+    "坠羽晨雾": "酒液粉白，倒在杯里像一小片褪了色的晨雾。虚空李代表消失的质量——一个人走了，他留下的空缺轻得像一片羽毛。",
+    "灼泪衔丹": "最后一滴泪落下时，她往坛里扔了一把辣椒。",
+    "紫露金风": "青提是浅紫的，黄葡萄是琥珀的。最好的搭配从来不是最像的。",
+  };
+
+  // 17 味材料的官方说明
+  const MAT_DESC = {
+    "甘蔗": "一段坚硬的甘蔗。凡间的甜，藏在硬壳底下。可以直接食用，也可以放进酒瓶里酿酒。",
+    "桂花": "一簇细碎的金黄桂花，香气袭人。那年别在襟前的桂香犹在，折桂的人却再没回头。可以直接食用，也可以放进酒瓶里酿酒。",
+    "花椒": "一把麻香的花椒。凡间的麻，让舌尖醒过来。可以直接食用，也可以放进酒瓶里酿酒。",
+    "黄瓜": "一根清脆的黄瓜。凡间的清凉，从田间直抵舌尖。可以直接食用，也可以放进酒瓶里酿酒。",
+    "黄葡萄": "一串圆润的黄葡萄。凡间的甜，被日光酿成金色。可以直接食用，也可以放进酒瓶里酿酒。",
+    "苦艾草": "一株苦艾草。凡间的苦，藏在草本香气背后。可以直接食用，也可以放进酒瓶里酿酒。",
+    "辣椒": "一只鲜红的辣椒。凡间最廉价的暖意，咬一口便能熬过夜班。可以直接食用，也可以放进酒瓶里酿酒。",
+    "荔枝": "一颗饱满的荔枝，果肉晶莹剔透。远来的珍果，甜得像上层区的一场旧梦。可以直接食用，也可以放进酒瓶里酿酒。",
+    "茉莉花": "一簇细碎的茉莉花，只在夜里开。远来的花，天亮之前就谢了。可以直接食用，也可以放进酒瓶里酿酒。",
+    "柠檬": "一只清香的柠檬。凡间的酸，比任何甜言蜜语都真切。可以直接食用，也可以放进酒瓶里酿酒。",
+    "青提": "一串青绿的青提，等过一场霜才够甜。远来的果，冷过一次才够沉。可以直接食用，也可以放进酒瓶里酿酒。",
+    "水稻": "一捧饱满的水稻。凡间最古老的安稳，一碗下肚便能撑过一整天。可以直接食用，也可以放进酒瓶里酿酒。",
+    "小麦": "一把金黄的小麦。凡间最寻常的饱足，被磨成面粉，也被酿成啤酒。可以直接食用，也可以放进酒瓶里酿酒。",
+    "星尘莓": "一颗半透明的浆果，果肉里悬着极细的光点，像被封存了一整个星夜的碎屑。调酒师说，这是残留的光——人走后留下的不是重量，是那些还没说完的话，还在发光。可以直接食用，也可以放进酒瓶里酿酒。",
+    "虚空李": "一颗乌黑的李子，果皮上没有一丝光泽，像被什么吸走了颜色。调酒师说，这是消失的质量——一个人走了，他留下的空缺比他的重量更沉。可以直接食用，也可以放进酒瓶里酿酒。",
+    "杨梅": "一颗鲜红多汁的杨梅，酸甜可口。从夏酿到冬，从浅绛沉到绯红，她终于明白有些人是等不回的。可以直接食用，也可以放进酒瓶里酿酒。",
+    "珍妮莫罗": "两朵放在一起，就可以酿成一瓶酒。\n——Lumos种下的一朵花。",
+  };
+
+  // 12 款不在残卷配方里的藏品酒
+  const SPECIAL_WINES = [
+    { n: "玉兔衔桂", tag: "月华桂 ×2" },
+    { n: "念何事", tag: "1.0 版本彩蛋" },
+    { n: "霓虹残梦", tag: "酿错的酒的去处" },
+    { n: "彩虹配方", tag: "制作者致谢" },
+    { n: "双清酿", tag: "收藏酒" },
+    { n: "南风旧酿", tag: "收藏酒" },
+    { n: "绯莓春酿", tag: "收藏酒" },
+    { n: "霓虹幻梦", tag: "收藏酒" },
+    { n: "理想的尽头", tag: "收藏酒" },
+    { n: "罗浮梦", tag: "收藏酒" },
+    { n: "神奇猪猪", tag: "收藏酒" },
+    { n: "海蓝幻梦", tag: "收藏酒" },
+  ];
+
   const BY_BOOK = BOOKS.map(b => ({
     ...b,
     items: RECIPES.filter(r => r.book === b.id)
@@ -1432,6 +1673,12 @@ h1 em {
     return safe.slice(0, i) + '<mark class="mark">' + safe.slice(i, i + nq.length) + "</mark>" + safe.slice(i + nq.length);
   }
 
+  // 官方风味文案：按酒名查表；文案里的 \n 交给 CSS 的 white-space: pre-line 断行
+  function descHTML(name) {
+    const d = WINE_DESC[name];
+    return d ? '<p class="wdesc">' + esc(d) + "</p>" : "";
+  }
+
   // 判定：返回 { state, ... }
   function judge() {
     const [a, b] = state.slots;
@@ -1465,6 +1712,7 @@ h1 em {
     verdict: $("#verdict"),
     pantry:  $("#pantry"),
     hint:    $("#pantryHint"),
+    matNote: $("#matNote"),
     booklist:$("#booklist"),
     chips:   $("#chips"),
     q:       $("#q"),
@@ -1496,6 +1744,16 @@ h1 em {
 
     const swap = $("#swapBtn");
     if (swap) swap.disabled = !(state.slots[0] && state.slots[1]);
+
+    // 槽下方那行小字：优先当前高亮槽的材料，空了就退到另一槽；都没选则整行隐藏
+    const cur = state.slots[state.active] || state.slots[0] || state.slots[1] || null;
+    const matDesc = cur ? MAT_DESC[cur] : "";
+    el.matNote.hidden = !matDesc;
+    if (matDesc) {
+      el.matNote.innerHTML =
+        '<span class="mn-name" style="color:var(--' + CAT_OF[cur] + ')">' + esc(cur) + "</span>" +
+        '<span class="mn-text">' + esc(matDesc) + "</span>";
+    }
   }
 
   /* ---------- 判定区 ---------- */
@@ -1542,6 +1800,7 @@ h1 em {
             ? `${esc(ra)}<i>×2</i>`
             : `${esc(ra)}<i>＋</i>${esc(rb)}`}</div>
           <div class="outcome">${esc(r.recipe.out)}</div>
+          ${descHTML(r.recipe.out)}
           <span class="badge is-ok">有据 · ${esc(b.title)}</span>
           <p class="quote">${esc(b.note)}</p>
         </div>`;
@@ -1553,6 +1812,7 @@ h1 em {
         <div class="verdict-body">
           <div class="pairs">${esc(r.a)}<i>＋</i>${esc(r.b)}</div>
           <div class="outcome is-fail">${esc(r.out)}</div>
+          ${descHTML(r.out)}
           <span class="badge is-warn">错配 · ${r.deducted ? "跨域推演" : esc(CATS[r.cat].name) + "错配"}</span>
           <p class="note">${esc(catName)} 于谱上无名，落为「${esc(r.out)}」。<br>${r.deducted ? "跨域无谱者，推演作异调。" : "同域错配，成该域之失败酒。"}</p>
         </div>`;
@@ -1645,22 +1905,58 @@ h1 em {
       </button>`).join("");
   }
 
+  /* ---------- 藏品酒（不在残卷里：不参与合成，也不计入检索条数） ---------- */
+  function specialMatches(q) {
+    if (!q) return SPECIAL_WINES;
+    const nq = q.toLowerCase();
+    return SPECIAL_WINES.filter(w =>
+      w.n.toLowerCase().includes(nq) ||
+      (w.tag || "").toLowerCase().includes(nq) ||
+      (WINE_DESC[w.n] || "").toLowerCase().includes(nq)
+    );
+  }
+
+  function reliquaryHTML(items, q, open) {
+    if (!items.length) return "";
+    return `
+      <details class="reliquary"${open ? " open" : ""}>
+        <summary>
+          <h3>藏品酒</h3>
+          <p>不在残卷里 · 无固定配方，不入合成</p>
+          <span class="num">${items.length} 款</span>
+        </summary>
+        <ul class="rel-list">
+          ${items.map(w => `
+            <li>
+              <b class="rel-name">${mark(w.n, q)}</b>
+              <i class="rel-tag">${esc(w.tag || "收藏酒")}</i>
+              ${descHTML(w.n)}
+            </li>`).join("")}
+        </ul>
+      </details>`;
+  }
+
   function renderList() {
     const q = state.query.trim();
     const books = filtered();
+    const specials = specialMatches(q);
 
     const total = books.reduce((s, b) => s + b.hit, 0) + (books.some(b => b.id === "fail") ? FAIL_RULES.length : 0);
-    el.count.textContent = (q ? "命中 " : "共 ") + total + " 条";
+    el.count.textContent = (q ? "命中 " : "共 ") + total + " 条"
+      + (q && specials.length ? " · 藏品 " + specials.length + " 款" : "");
     el.qClear.classList.toggle("is-on", !!q);
 
-    if (!books.length) {
-      el.booklist.innerHTML = `<p class="empty">谱上无名 · 换个字再寻</p>`;
-      return;
-    }
+    // 折叠状态跨重绘保留；检索时自动展开，让命中的藏品酒直接可见
+    const prevRel = el.booklist.querySelector(".reliquary");
+    const keepOpen = !!(prevRel && prevRel.open) || !!q;
 
-    el.booklist.innerHTML = books.map(b => {
-      if (b.id === "fail") {
-        return `
+    let html = "";
+    if (!books.length) {
+      if (!specials.length) html = `<p class="empty">谱上无名 · 换个字再寻</p>`;
+    } else {
+      html = books.map(b => {
+        if (b.id === "fail") {
+          return `
           <article class="book">
             <div class="book-head">
               <h3>${esc(b.title)}</h3>
@@ -1678,9 +1974,9 @@ h1 em {
             </ul>
             <p class="book-note">${esc(b.note)}</p>
           </article>`;
-      }
+        }
 
-      return `
+        return `
         <article class="book">
           <div class="book-head">
             <h3>${esc(b.title)}</h3>
@@ -1701,7 +1997,10 @@ h1 em {
           </ul>
           <p class="book-note">${esc(b.note)}</p>
         </article>`;
-    }).join("");
+      }).join("");
+    }
+
+    el.booklist.innerHTML = html + reliquaryHTML(specials, q, keepOpen);
   }
 
   function render() {
