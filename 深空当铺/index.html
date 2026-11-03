@@ -1884,7 +1884,8 @@ h1 em {
             r.a.toLowerCase().includes(q) ||
             r.b.toLowerCase().includes(q) ||
             b.title.toLowerCase().includes(q) ||
-            (b.sub || "").toLowerCase().includes(q)
+            (b.sub || "").toLowerCase().includes(q) ||
+            (WINE_DESC[r.out] || "").toLowerCase().includes(q)
           );
         }
         return { ...b, items, hit: items.length };
