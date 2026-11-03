@@ -122,6 +122,7 @@ html[data-theme="light"] {
   --glow: #7752C4;
   --ok: #15803D;
   --warn: #A16207;
+  --danger: #B91C1C;
   --shadow: 0 20px 40px -18px rgba(28, 25, 23, .16);
   --shadow-sm: 0 1px 2px rgba(28, 25, 23, .06);
   --sky-a: rgba(255, 237, 213, .26);
@@ -150,6 +151,7 @@ html[data-theme="dark"] {
   --glow: #C4A6F5;
   --ok: #7FCB9B;
   --warn: #FCD34D;
+  --danger: #F87171;
   --shadow: 0 24px 48px -20px rgba(0, 0, 0, .85);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, .5);
   --sky-a: rgba(251, 146, 60, .10);
@@ -381,28 +383,51 @@ h1 em {
   max-width: var(--shell);
   margin: 0 auto;
   padding: 0 var(--pad-x) 72px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
-  gap: 24px;
-  align-items: start;
 }
 
-/* 谱页很长，桌面端把合成台钉住，翻谱时配方始终在视野里 */
-@media (min-width: 1181px) and (min-height: 860px) {
-  .layout > .panel:first-child {
-    position: sticky;
-    top: 22px;
-    max-height: calc(100vh - 44px);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
-    scrollbar-color: var(--line-2) transparent;
-  }
-  .layout > .panel:first-child::-webkit-scrollbar { width: 6px; }
-  .layout > .panel:first-child::-webkit-scrollbar-thumb {
-    background: var(--line-2);
-    border-radius: 99px;
-  }
+/* ---------- 页签 ---------- */
+.tabs {
+  position: relative;
+  z-index: 1;
+  max-width: var(--shell);
+  margin: 0 auto 18px;
+  padding: 0 var(--pad-x);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.tab {
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--dim);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+}
+.tab:hover { color: var(--text); border-color: var(--line-2); }
+.tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tab[aria-selected="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #FAF8F4;
+  font-weight: 700;
+}
+
+/* 一个页签占满一屏，未选中的整块隐藏 */
+.pane { display: none; }
+.pane.is-on { display: block; }
+
+/* 合成台这一页内部仍是两栏 */
+.forge-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
 }
 
 .panel {
@@ -592,6 +617,17 @@ h1 em {
   color: var(--line-2);
   font-weight: 400;
 }
+.mn-tier {
+  flex: none;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--dim-2);
+  font-size: 11px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
 
 /* ============================================================
    判定区
@@ -658,6 +694,12 @@ h1 em {
 .badge.is-warn {
   border-color: color-mix(in srgb, var(--warn) 40%, transparent);
   color: var(--warn);
+}
+.badge-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.badge.is-val {
+  border-color: color-mix(in srgb, var(--gold) 42%, transparent);
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
 }
 
 .note {
@@ -850,6 +892,18 @@ h1 em {
 }
 .mat.is-on[data-compat="1"]::after { background: #FAF8F4; }
 .mat:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* preview value on each mat when one slot is filled */
+.mat-val {
+  margin-left: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+.mat-val.is-miss { color: var(--danger); }
+.mat.is-on .mat-val { color: rgba(250, 248, 244, .85); }
+.mat.is-on .mat-val.is-miss { color: #FECACA; }
 
 /* ---------- 失败手札 ---------- */
 .failbook {
@@ -902,6 +956,93 @@ h1 em {
   min-width: 3.2em;
 }
 .failbook .note { margin-top: 10px; font-size: 12px; }
+
+/* ============================================================
+   数据页
+   ============================================================ */
+.data-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  margin-top: 4px;
+}
+.sec-title {
+  margin: 22px 0 10px;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+.data-cols > div > .sec-title:first-child { margin-top: 0; }
+
+.vtable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.vtable th,
+.vtable td {
+  padding: 7px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  color: var(--dim);
+}
+.vtable th {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--dim-2);
+  border-bottom-color: var(--line-2);
+}
+.vtable td:nth-child(2) { color: var(--dim-2); }
+.vtable td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.vtable tr:last-child td { border-bottom: 0; }
+.vtable tbody tr:hover td { background: var(--panel-2); }
+.vtable b { font-weight: 700; }
+.t-mortal { color: var(--mortal); }
+.t-afar { color: var(--afar); }
+.t-longing { color: var(--longing); }
+.t-glow { color: var(--glow); }
+
+.calc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.calc select,
+.calc input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+.calc select:focus,
+.calc input:focus { outline: none; border-color: var(--accent); }
+.calc input { width: 84px; }
+.calc label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--dim-2);
+}
+.calc-plus { color: var(--dim-2); font-size: 13px; }
+.calc-out {
+  flex: 1 1 240px;
+  min-height: 36px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px dashed var(--line-2);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--dim);
+}
 
 /* ============================================================
    检索
@@ -1088,6 +1229,26 @@ h1 em {
   white-space: nowrap;
 }
 .failrow .r-out { color: var(--dim); font-weight: 600; }
+/* wine base value, from BarrelWine table */
+.r-val {
+  flex: none;
+  min-width: 42px;
+  padding-left: 10px;
+  text-align: right;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--dim-2);
+  font-variant-numeric: tabular-nums;
+}
+.recipe:hover .r-val { color: var(--gold); }
+.rel-val {
+  margin-left: 6px;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
 
 .mark {
   background: var(--accent-soft);
@@ -1224,14 +1385,18 @@ h1 em {
   color: var(--dim-2);
   letter-spacing: .3px;
 }
+.foot-mod { margin-top: 6px !important; }
+.foot-mod b { color: var(--accent); font-weight: 600; letter-spacing: .2px; }
 .foot-dim { margin-top: 4px !important; opacity: .8; }
+.eyebrow b { font-weight: 700; letter-spacing: .4px; }
 
 /* ============================================================
    响应式
    ============================================================ */
 @media (max-width: 1180px) {
   :root { --pad-x: 44px; }
-  .layout { grid-template-columns: 1fr; }
+  .forge-cols,
+  .data-cols { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 720px) {
@@ -1266,6 +1431,10 @@ h1 em {
   .reliquary > summary { padding: 14px; }
   .rel-list { padding: 2px 14px 14px; }
   .mat-note { font-size: 11.5px; }
+  .vtable { font-size: 12px; }
+  .vtable th, .vtable td { padding: 6px 8px; }
+  .calc input { width: 68px; }
+  .calc-out { flex: 1 1 100%; }
   .foot { padding-top: 24px; padding-bottom: 32px; }
 }
 
@@ -1310,17 +1479,26 @@ h1 em {
   </div>
 
   <div class="hero">
-    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>NO. 001 · 酿酒拓展 · OUTER RING DISTRICT</p>
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>NO. 001 · 酿酒拓展 <b>v3.6.7.6</b> · OUTER RING DISTRICT</p>
     <h1>星海尽头，<br>一盏未凉的<em>酒</em></h1>
     <p class="lede">两份材料，一页残谱。左右不分先后，合酿自有其名。</p>
   </div>
 
 </header>
 
+<nav class="tabs" role="tablist" aria-label="视图切换">
+  <button class="tab" type="button" role="tab" id="tabForge" aria-controls="paneForge" aria-selected="true" data-tab="forge">合成台</button>
+  <button class="tab" type="button" role="tab" id="tabBook" aria-controls="paneBook" aria-selected="false" data-tab="book">酒谱</button>
+  <button class="tab" type="button" role="tab" id="tabData" aria-controls="paneData" aria-selected="false" data-tab="data">数据</button>
+</nav>
+
 <main class="layout">
 
-  <!-- ===== 合成台 ===== -->
-  <section class="panel" aria-labelledby="forgeTitle">
+  <!-- ===== 页签一：合成台 ===== -->
+  <section class="panel pane is-on" id="paneForge" role="tabpanel" aria-labelledby="tabForge" data-pane="forge">
+    <div class="forge-cols">
+    <div class="fcol">
+
     <div class="panel-head">
       <h2 id="forgeTitle">合成台</h2>
       <div class="tools">
@@ -1351,7 +1529,9 @@ h1 em {
     <p class="mat-note" id="matNote" aria-live="polite" hidden></p>
 
     <div class="verdict" id="verdict" aria-live="polite"></div>
+    </div>
 
+    <div class="fcol">
     <div class="pantry-head">
       <h3>材料库 <span class="hint" id="pantryHint">点选填入当前槽位</span></h3>
       <div class="fill-mode" role="group" aria-label="填入模式">
@@ -1373,12 +1553,17 @@ h1 em {
         <li><span class="dot longing"></span><span>情思材料错配</span><i>→</i><b>错付</b></li>
         <li><span class="dot glow"></span><span>遗光材料错配</span><i>→</i><b>余烬</b></li>
       </ul>
-      <p class="note">同一域内无记载酒谱则落到该域的失败酒；跨域而谱上无名者，本文推演作「异调」。</p>
+      <p class="note">四域各带一个价值：凡间 30 ｜ 远来 60 ｜ 情思 225 ｜ 遗光 850。<br>
+      谱上无名时，取两味中较高的一档归位 —— 达到 850 得余烬，达到 225 得错付，达到 60 得异调，其余为杂酿。<br>
+      例：辣椒 30 ＋ 桂花 225 → 错付；荔枝 60 ＋ 虚空李 850 → 余烬。</p>
+      <p class="note">另：流年柜内的酒每天自动陈年 +3；声望跌到 -3 及以下时，种子加成归零。</p>
     </details>
+    </div>
+    </div>
   </section>
 
-  <!-- ===== 检索 ===== -->
-  <section class="panel" aria-labelledby="searchTitle">
+  <!-- ===== 页签二：酒谱 ===== -->
+  <section class="panel pane" id="paneBook" role="tabpanel" aria-labelledby="tabBook" data-pane="book">
     <div class="panel-head">
       <h2 id="searchTitle">酒谱检索</h2>
       <span class="hint" id="countHint"></span>
@@ -1395,10 +1580,69 @@ h1 em {
     <div class="booklist" id="booklist"></div>
   </section>
 
+  <!-- ===== 页签三：数据 ===== -->
+  <section class="panel pane" id="paneData" role="tabpanel" aria-labelledby="tabData" data-pane="data">
+    <div class="panel-head">
+      <h2 id="dataTitle">价值与陈年</h2>
+      <span class="hint">取自 BrewingExpansion.dll 反汇编</span>
+    </div>
+
+    <div class="data-cols">
+      <div>
+        <h3 class="sec-title">材料价值</h3>
+        <table class="vtable">
+          <thead><tr><th>材料</th><th>域</th><th>价值</th></tr></thead>
+          <tbody id="valueTable"></tbody>
+        </table>
+        <p class="note">月华桂价值 0 且不可浓缩，不在 17 味之列。</p>
+      </div>
+
+      <div>
+        <h3 class="sec-title">错配阈值</h3>
+        <table class="vtable">
+          <thead><tr><th>取两味较高档</th><th>失败酒</th></tr></thead>
+          <tbody>
+            <tr><td>达到 850</td><td><b class="t-glow">余烬</b></td></tr>
+            <tr><td>达到 225</td><td><b class="t-longing">错付</b></td></tr>
+            <tr><td>达到 60</td><td><b class="t-afar">异调</b></td></tr>
+            <tr><td>低于 60</td><td><b class="t-mortal">杂酿</b></td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sec-title">陈年</h3>
+        <table class="vtable">
+          <thead><tr><th>项</th><th>值</th></tr></thead>
+          <tbody>
+            <tr><td>流年柜内每天</td><td>+3</td></tr>
+            <tr><td>单瓶覆盖</td><td>物品标签</td></tr>
+            <tr><td>冰镇加速</td><td>耗电</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3 class="sec-title">价值计算器</h3>
+    <div class="calc">
+      <select id="vcA" aria-label="第一味材料"></select>
+      <span class="calc-plus">＋</span>
+      <select id="vcB" aria-label="第二味材料"></select>
+      <div class="calc-out" id="vcOut"></div>
+    </div>
+
+    <h3 class="sec-title">陈年计算器</h3>
+    <div class="calc">
+      <label>当前 <input id="ageNow" type="number" min="0" value="0"></label>
+      <label>天数 <input id="ageDays" type="number" min="0" value="30"></label>
+      <label>每天 <input id="ageRate" type="number" min="0" value="3"></label>
+      <div class="calc-out" id="ageOut"></div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="foot">
   <p>录自《凡间单酿》《凡间双穗》《远来之酿》《远凡交汇》《双远合酿》《情思手记》《遗光残页》《失败手札》。</p>
+  <p class="foot-mod">酿酒拓展 <b>v3.6.7.6</b> · 作者 xuxu · 适配游戏 0.46D · 取自 Localization/zh.csv 与 BrewingExpansion.dll 反汇编</p>
   <p class="foot-dim">按 / 聚焦检索 · 点任意酒谱可回填合成台 · 所有告别都是延迟的引力</p>
 </footer>
 
@@ -1528,7 +1772,7 @@ h1 em {
     { cat: "glow",    label: "遗光材料错配", out: "余烬" }
   ];
 
-  /* ===== 官方文案：来自工坊模组 酿酒拓展 3.6.7.4 Localization/zh.csv ===== */
+  /* ===== 官方文案：来自工坊模组 酿酒拓展 3.6.7.6 Localization/zh.csv ===== */
 
   // 67 款酒的官方风味文案（键为酒名，\n 为游戏中显示的换行）
   const WINE_DESC = {
@@ -1602,6 +1846,27 @@ h1 em {
   };
 
   // 17 味材料的官方说明
+  // wine base value, from BarrelWine.cctor (57 entries)
+  const WINE_VALUE = {
+    "辣椒酒": 115, "米酒": 115, "啤酒": 115, "苦艾酒": 115, "花椒酒": 115,
+    "柠檬酒": 115, "白兰地酒": 115, "朗姆酒": 115, "黄瓜酒": 115,
+    "荔枝酒": 220, "夜香浮雪": 220, "霜凝青提": 220,
+    "桂魄流金": 520, "绛珠凝露": 520,
+    "坠羽晨雾": 2000, "余光未冷": 2000,
+    "故穗": 115, "赤麻渡": 115, "酸甜半盏": 115, "碧珀流光": 115,
+    "半盏酸苦": 115, "稻珀双甘": 115, "麦甘酿": 115, "蜜金晚照": 115,
+    "荔枝糯米冰酿": 180, "箬叶幽香": 180, "清荔流霞": 180, "茉香米酿": 180,
+    "茉柠清晓": 180, "花蔗流年": 180, "碧麦流金": 180, "翠玉清珠": 180,
+    "紫露金风": 180, "青隙留春": 180, "雾笺留白": 180, "青提微风": 180,
+    "茉白清露": 180, "荔语微甜": 180, "洁瓣余息": 180,
+    "茉莉青提": 220,
+    "桂信迟酸": 350, "绛痕沉蔗": 350, "灼泪衔丹": 350, "错季书": 1314,
+    "沉渊米酿": 700, "空谷苦艾": 700, "星落麦田": 700, "冷星入盏": 700,
+    "夜香沉寂": 800, "星坠青藤": 800, "星尘挽歌": 3500,
+    "杂酿": 80, "异调": 115, "错付": 220, "余烬": 650,
+    "玉兔衔桂": 815, "念何事": 250
+  };
+
   const MAT_DESC = {
     "甘蔗": "一段坚硬的甘蔗。凡间的甜，藏在硬壳底下。可以直接食用，也可以放进酒瓶里酿酒。",
     "桂花": "一簇细碎的金黄桂花，香气袭人。那年别在襟前的桂香犹在，折桂的人却再没回头。可以直接食用，也可以放进酒瓶里酿酒。",
@@ -1637,6 +1902,32 @@ h1 em {
     { n: "神奇猪猪", tag: "收藏酒" },
     { n: "海蓝幻梦", tag: "收藏酒" },
   ];
+
+  /* ---------------------------------------------------------
+     材料价值与混酿阈值
+     取自 BrewingExpansion.dll 反汇编：BrewingFruits::.cctor
+     的三元组（材料 / 价值 / 可浓缩）与 FormalRecipeFermentation::Misc
+     的四档阈值。谱上无名者按两味中较高的一档落成失败酒。
+     --------------------------------------------------------- */
+  const FRUIT_VALUE = {
+    "辣椒": 30, "水稻": 30, "小麦": 30, "苦艾草": 30, "花椒": 30,
+    "柠檬": 30, "黄葡萄": 30, "甘蔗": 30, "黄瓜": 30,
+    "荔枝": 60, "茉莉花": 60, "青提": 60, "珍妮莫罗": 60,
+    "桂花": 225, "杨梅": 225,
+    "虚空李": 850, "星尘莓": 850
+  };
+
+  const FAIL_TIERS = [
+    { v: 850, out: "余烬" },
+    { v: 225, out: "错付" },
+    { v: 60,  out: "异调" },
+    { v: 0,   out: "杂酿" }
+  ];
+
+  function failByValue(v) {
+    for (const t of FAIL_TIERS) if (v >= t.v) return t.out;
+    return "杂酿";
+  }
 
   // Item icons: 32x32 PNGs shipped in icons/, keyed by display name
   // (alt is empty on purpose: the page charset must not grow, the font subset follows it)
@@ -1794,11 +2085,11 @@ h1 em {
     const hit = findRecipe(a, b);
     if (hit) return { state: "ok", recipe: hit, a, b };
 
-    const ca = CAT_OF[a], cb = CAT_OF[b];
-    if (ca === cb) {
-      return { state: "fail", a, b, out: CATS[ca].fail, deducted: false, cat: ca };
-    }
-    return { state: "fail", a, b, out: "异调", deducted: true };
+    // 谱上无名：按两味材料中较高的一档落成失败酒（与游戏内阈值一致）
+    const va = FRUIT_VALUE[a] || 0;
+    const vb = FRUIT_VALUE[b] || 0;
+    const v  = Math.max(va, vb);
+    return { state: "fail", a, b, out: failByValue(v), va, vb, v };
   }
 
   /* =========================================================
@@ -1858,6 +2149,7 @@ h1 em {
     if (matDesc) {
       el.matNote.innerHTML =
         '<span class="mn-name" style="color:var(--' + CAT_OF[cur] + ')">' + iconHTML(cur) + esc(cur) + "</span>" +
+        '<span class="mn-tier">价值 ' + (FRUIT_VALUE[cur] || 0) + "</span>" +
         '<span class="mn-text">' + esc(matDesc) + "</span>";
     }
   }
@@ -1907,20 +2199,27 @@ h1 em {
             : `${esc(ra)}<i>＋</i>${esc(rb)}`}</div>
           <div class="outcome">${iconHTML(r.recipe.out)}${esc(r.recipe.out)}</div>
           ${descHTML(r.recipe.out)}
-          <span class="badge is-ok">有据 · ${esc(b.title)}</span>
+          <div class="badge-row">
+            <span class="badge is-ok">有据 · ${esc(b.title)}</span>
+            <span class="badge is-val">价值 ${WINE_VALUE[r.recipe.out] ?? "—"}</span>
+          </div>
           <p class="quote">${esc(b.note)}</p>
         </div>`;
     }
 
     else {
-      const catName = CATS[CAT_OF[r.a]].name + " × " + CATS[CAT_OF[r.b]].name;
+      const catA = CATS[CAT_OF[r.a]].name;
+      const catB = CATS[CAT_OF[r.b]].name;
       html = `
         <div class="verdict-body">
           <div class="pairs">${esc(r.a)}<i>＋</i>${esc(r.b)}</div>
           <div class="outcome is-fail">${iconHTML(r.out)}${esc(r.out)}</div>
           ${descHTML(r.out)}
-          <span class="badge is-warn">错配 · ${r.deducted ? "跨域推演" : esc(CATS[r.cat].name) + "错配"}</span>
-          <p class="note">${esc(catName)} 于谱上无名，落为「${esc(r.out)}」。<br>${r.deducted ? "跨域无谱者，推演作异调。" : "同域错配，成该域之失败酒。"}</p>
+          <div class="badge-row">
+            <span class="badge is-warn">错配 · 无谱</span>
+            <span class="badge is-val">价值 ${WINE_VALUE[r.out] ?? "—"}</span>
+          </div>
+          <p class="note">${esc(catA)} ${r.va} × ${esc(catB)} ${r.vb}，谱上无名。<br>按较高的一档，落为「${esc(r.out)}」。</p>
         </div>`;
     }
 
@@ -1958,9 +2257,19 @@ h1 em {
           ${g.items.map(m => {
             const on = state.slots.includes(m.n);
             const compat = picked.length > 0 && picked.every(p => findRecipe(p, m.n));
+            const tv = FRUIT_VALUE[m.n] || 0;
+            // with one slot filled, preview which wine this pair yields
+            const anchor = picked.length === 1 ? picked[0] : null;
+            const hit = anchor ? findRecipe(anchor, m.n) : null;
+            let valHTML = "";
+            if (anchor) {
+              const fv = hit ? hit.out : failByValue(Math.max(FRUIT_VALUE[anchor] || 0, tv));
+              valHTML = `<span class="mat-val${hit ? "" : " is-miss"}">${WINE_VALUE[fv] ?? ""}</span>`;
+            }
+            const tip = anchor ? (hit ? " · 与已选可配" : " · 与已选错配") : "";
             return `<button class="mat${on ? " is-on" : ""}" type="button"
                       data-mat="${esc(m.n)}" data-compat="${compat ? 1 : 0}"
-                      title="${esc(m.n)}${compat && picked.length ? " · 与已选可配" : ""}">${iconHTML(m.n)}${esc(m.n)}</button>`;
+                      title="${esc(m.n)} · 价值 ${tv}${tip}">${iconHTML(m.n)}${esc(m.n)}${valHTML}</button>`;
           }).join("")}
         </div>
       </div>`).join("");
@@ -2035,7 +2344,7 @@ h1 em {
         <ul class="rel-list">
           ${items.map(w => `
             <li>
-              <b class="rel-name">${iconHTML(w.n)}${mark(w.n, q)}</b>
+              <b class="rel-name">${iconHTML(w.n)}${mark(w.n, q)}${WINE_VALUE[w.n] ? `<i class="rel-val">${WINE_VALUE[w.n]}</i>` : ""}</b>
               <i class="rel-tag">${esc(w.tag || "收藏酒")}</i>
               ${descHTML(w.n)}
             </li>`).join("")}
@@ -2077,6 +2386,7 @@ h1 em {
                   <span>${esc(f.label)}</span>
                   <span class="arrow">→</span>
                   <span class="r-out">${iconHTML(f.out)}${esc(f.out)}</span>
+                  <span class="r-val">${WINE_VALUE[f.out] ?? "—"}</span>
                 </li>`).join("")}
             </ul>
             <p class="book-note">${esc(b.note)}</p>
@@ -2099,6 +2409,7 @@ h1 em {
                   ${r.a === r.b ? "" : `<span class="r-in">${mark(r.b, q)}</span>`}
                   <span class="arrow">→</span>
                   <span class="r-out">${iconHTML(r.out)}${mark(r.out, q)}</span>
+                  <span class="r-val">${WINE_VALUE[r.out] ?? "—"}</span>
                 </button>
               </li>`).join("")}
           </ul>
@@ -2325,6 +2636,96 @@ h1 em {
   themeBtn.addEventListener("click", () => {
     applyTheme(root.dataset.theme === "dark" ? "light" : "dark");
   });
+
+  /* ---------- 分页 ---------- */
+  const TABS = $$(".tab");
+  const PANES = $$(".pane");
+
+  function setTab(name) {
+    TABS.forEach(t => t.setAttribute("aria-selected", t.dataset.tab === name ? "true" : "false"));
+    PANES.forEach(p => p.classList.toggle("is-on", p.dataset.pane === name));
+    try { history.replaceState(null, "", "#" + name); } catch (_) {}
+  }
+
+  TABS.forEach((t, i) => {
+    t.addEventListener("click", () => setTab(t.dataset.tab));
+    t.addEventListener("keydown", e => {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      e.preventDefault();
+      const n = (i + (e.key === "ArrowRight" ? 1 : TABS.length - 1)) % TABS.length;
+      TABS[n].focus();
+      setTab(TABS[n].dataset.tab);
+    });
+  });
+
+  window.addEventListener("hashchange", () => {
+    const h = location.hash.replace("#", "");
+    if (TABS.some(t => t.dataset.tab === h)) setTab(h);
+  });
+
+  (function initTab() {
+    const h = location.hash.replace("#", "");
+    setTab(TABS.some(t => t.dataset.tab === h) ? h : "forge");
+  })();
+
+  /* ---------- 数据页：材料价值表 ---------- */
+  (function initValueTable() {
+    const body = $("#valueTable");
+    if (!body) return;
+    const order = ["mortal", "afar", "longing", "glow"];
+    const rows = MATS.slice().sort((a, b) =>
+      order.indexOf(a.c) - order.indexOf(b.c) || (FRUIT_VALUE[b.n] || 0) - (FRUIT_VALUE[a.n] || 0)
+    );
+    body.innerHTML = rows.map(m => `<tr>
+        <td><span class="dot ${m.c}"></span>${esc(m.n)}</td>
+        <td>${esc(CATS[m.c].name)}</td>
+        <td>${FRUIT_VALUE[m.n] || 0}</td>
+      </tr>`).join("");
+  })();
+
+  /* ---------- 数据页：价值计算器 ---------- */
+  (function initValueCalc() {
+    const a = $("#vcA"), b = $("#vcB"), out = $("#vcOut");
+    if (!a || !b || !out) return;
+    const opts = MATS.map(m => `<option value="${esc(m.n)}">${esc(m.n)}</option>`).join("");
+    a.innerHTML = opts;
+    b.innerHTML = opts;
+    a.value = "辣椒";
+    b.value = "桂花";
+
+    function run() {
+      const va = FRUIT_VALUE[a.value] || 0;
+      const vb = FRUIT_VALUE[b.value] || 0;
+      const v = Math.max(va, vb);
+      const hit = findRecipe(a.value, b.value);
+      if (hit) {
+        out.innerHTML = `<b style="color:var(--gold)">${esc(hit.out)}</b> —— 谱上有记 · ${esc(BOOK_MAP[hit.book].title)}`;
+        return;
+      }
+      const fail = failByValue(v);
+      const cls = v >= 850 ? "glow" : v >= 225 ? "longing" : v >= 60 ? "afar" : "mortal";
+      out.innerHTML =
+        `${esc(a.value)} ${va} ＋ ${esc(b.value)} ${vb} · 取较高 <b>${v}</b>，` +
+        `谱上无名，落为 <b class="t-${cls}">${esc(fail)}</b>`;
+    }
+    a.addEventListener("change", run);
+    b.addEventListener("change", run);
+    run();
+  })();
+
+  /* ---------- 数据页：陈年计算器 ---------- */
+  (function initAgeCalc() {
+    const now = $("#ageNow"), days = $("#ageDays"), rate = $("#ageRate"), out = $("#ageOut");
+    if (!now || !days || !rate || !out) return;
+    function run() {
+      const n0 = Math.max(0, Number(now.value) || 0);
+      const d = Math.max(0, Number(days.value) || 0);
+      const r = Math.max(0, Number(rate.value) || 0);
+      out.innerHTML = `当前 ${n0} ＋ ${d} 天 × 每天 ${r} = <b style="color:var(--gold)">${n0 + d * r}</b>`;
+    }
+    [now, days, rate].forEach(n => n.addEventListener("input", run));
+    run();
+  })();
 
   /* ---------- 启动 ---------- */
   $("#statRecipe").textContent = RECIPES.length;
