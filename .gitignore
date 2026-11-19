@@ -21,3 +21,24 @@ desktop.ini
 
 # 解析笔记与教程：本地留档，不进公开仓库、不上 GitHub Pages
 /深空当铺/.doc/
+
+# ===== 《Symphony of War》攻略：只发布网页成品，调研中间产物全部排除 =====
+# 调研 raw 笔记与分章草稿（网页成品为 Symphony of War/index.html，已是完整自包含单页）
+/SoW_社区指南中文笔记.md
+/Symphony of War 四篇Steam指南中文笔记.md
+/Symphony of War 六篇Steam指南中文笔记.md
+/Symphony of War 详尽中文攻略.md
+/批次3_职业树笔记.md
+/批次4_成就羁绊笔记.md
+/最终攻略/
+
+# 抓取时的网页原件、解析文本、图片、构建脚本与临时依赖
+/_pydeps/
+/__pycache__/
+/_img/
+/_img_*.jpg
+/_*.py
+/_*.txt
+/_*.html
+/guide*.html
+/guide*.txt

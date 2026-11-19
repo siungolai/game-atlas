@@ -8,6 +8,7 @@
 
 | 工具 | 游戏 / 模组 | 直达 |
 | --- | --- | --- |
+| Symphony of War 详尽中文攻略 | [Symphony of War: The Nephilim Saga](https://store.steampowered.com/app/1488200/) | [/Symphony of War/](./Symphony%20of%20War/) |
 | 酿酒合成谱 | 深空当铺 · [酿酒拓展 \| Brewing Expansion](https://steamcommunity.com/sharedfiles/filedetails/?id=3829730904) | [/深空当铺/](./深空当铺/) |
 
 ## 目录结构
@@ -17,6 +18,8 @@ game-atlas/
 ├── index.html          # 工具索引页（新工具在这里挂一张卡片）
 ├── fonts/              # 自托管字体子集：Noto Serif SC / Noto Sans SC / Ma Shan Zheng
 ├── tools/              # 字体子集生成 + 离线可用性校验
+├── Symphony of War/    # 《Symphony of War》详尽中文攻略（单页，目录侧栏）
+│   └── index.html
 ├── 深空当铺/            # 一个游戏一个目录
 │   ├── index.html      # 该游戏的工具页（可直接访问 /深空当铺/）
 │   ├── Modlist/        # 模组原件留档（不进仓库，.gitignore 已排除）
