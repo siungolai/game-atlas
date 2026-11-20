@@ -40,5 +40,8 @@ desktop.ini
 /_*.py
 /_*.txt
 /_*.html
+/_*.md
+/_*.json
+/_*.sh
 /guide*.html
 /guide*.txt
