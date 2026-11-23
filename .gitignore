@@ -45,3 +45,10 @@ desktop.ini
 /_*.sh
 /guide*.html
 /guide*.txt
+
+# 归档区：本地留档，不上线
+/_archive/
+
+# 本地凭据与临时脚本：含 token 的目录、调试脚本一律不入库
+/_pushdata/
+/_*.js
