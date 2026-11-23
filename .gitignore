@@ -52,3 +52,5 @@ desktop.ini
 # 本地凭据与临时脚本：含 token 的目录、调试脚本一律不入库
 /_pushdata/
 /_*.js
+/scripts/merge-pr.js
+/scripts/review-prompt.js
