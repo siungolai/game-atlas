@@ -84,6 +84,24 @@ a:hover{text-decoration:underline}
 .toc a.active{background:var(--peach-light);color:#9A3412;font-weight:600}
 :root[data-theme="dark"] .toc a.active{background:#292524;color:var(--gold-light)}
 
+/* 章 → 模块 两级导航（Issue #3）*/
+.module-toc{font-size:13px}
+.module-toc .toc-chapter{border-bottom:1px solid var(--line);padding:4px 0}
+.module-toc .toc-chapter:last-child{border-bottom:0}
+.module-toc summary{cursor:pointer;list-style:none;padding:6px 8px;border-radius:var(--r-sm)}
+.module-toc summary::-webkit-details-marker{display:none}
+.module-toc summary::before{content:"▸";display:inline-block;width:14px;color:var(--text-3);transition:transform .15s}
+.module-toc .toc-chapter[open]>summary::before{transform:rotate(90deg)}
+.module-toc summary:hover{background:var(--chip-bg)}
+.module-toc .chap-link{font-family:var(--font-display);font-weight:700;font-size:13.5px;color:var(--text);padding:0;display:inline}
+.module-toc .chap-link:hover{background:none;color:var(--accent-fg)}
+.module-toc .mod-list{list-style:none;margin:2px 0 8px;padding:0 0 0 12px;border-left:1px solid var(--line)}
+.module-toc .mod-item{display:grid;grid-template-columns:18px 1fr;gap:0 8px;padding:4px 0}
+.module-toc .mod-no{grid-column:1;grid-row:1;font-variant-numeric:tabular-nums;font-size:11px;color:var(--text-4);text-align:right;padding-top:3px}
+.module-toc .mod-link{grid-column:2;grid-row:1;color:var(--text-2);font-size:12.5px;padding:2px 4px}
+.module-toc .mod-link:hover{background:var(--chip-bg);color:var(--accent-fg)}
+.module-toc .mod-guide{grid-column:2;grid-row:2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:11px;line-height:1.5;color:var(--text-3);padding:1px 4px 0;font-family:var(--font-body)}
+
 /* article */
 .article{min-width:0;font-size:15.5px}
 .article>h1:first-child{margin-top:0}
@@ -157,82 +175,206 @@ a:hover{text-decoration:underline}
   </div>
 </section>
 
-<details class="mobile-toc"><summary>目录 / 章节导航</summary><div class="toc">
-<ul>
-<li><a href="#symphony-of-war-the-nephilim-saga">《Symphony of War: The Nephilim Saga》详尽中文攻略</a><ul>
-<li><a href="#_1">目录</a></li>
-<li><a href="#_2">版本与来源说明</a></li>
-<li><a href="#_3">核心概念速查（新手建议先读）</a></li>
-</ul>
-</li>
-<li><a href="#_4">第一章 核心战斗机制</a><ul>
-<li><a href="#_5">核心战斗机制</a></li>
-</ul>
-</li>
-<li><a href="#_17">第二章 军队编成与小队原型</a><ul>
-<li><a href="#_18">军队编成与小队原型</a></li>
-</ul>
-</li>
-<li><a href="#_24">第三章 转职系统与独特佣兵</a><ul>
-<li><a href="#03">03 转职系统与独特佣兵</a></li>
-</ul>
-</li>
-<li><a href="#_26">第四章 科技树装备与神器</a><ul>
-<li><a href="#_27">第四章 科技树、装备与神器</a></li>
-</ul>
-</li>
-<li><a href="#_33">第五章 成就与角色羁绊</a><ul>
-<li><a href="#_34">五、成就与角色羁绊</a></li>
-</ul>
-</li>
-<li><a href="#_36">第六章 战役流程与高难度打法</a></li>
-<li><a href="#mod">第七章 刷级赚钱MOD与新手起步与来源附录</a><ul>
-<li><a href="#mod_1">第七章 刷级、赚钱、MOD 与新手起步</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</details>
+<details class="mobile-toc"><summary>目录 / 章节导航</summary><nav class="toc module-toc">
+<details class="toc-chapter" open>
+<summary><a href="#_4" class="chap-link">第一章 核心战斗机制</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#volley" class="mod-link" title="拆解近战交战的基本结构：同类单位独立选目标后同时攻击构成一次 volley（齐射），各类型依次打完为一轮 round，攻守交替；并给出完整近战齐射顺序表，说明多数单位每场参加两轮、法师／火炮／治疗者只有一轮，适合想读懂战斗节奏的新手。">一、Volley（齐射）机制</a><span class="mod-guide">拆解近战交战的基本结构：同类单位独立选目标后同时攻击构成一次 volley（齐射），各类型依次打完为一轮 round，攻守交替；并给出完整近战齐射顺序表，说明多数单位每场参加两轮、法师／火炮／治疗者只有一轮，适合想读懂战斗节奏的新手。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#lanchester" class="mod-link" title="讲统率（领导力）收益递增的 Lanchester 平方律：同质部队战力约与数量平方成正比，修正后近似「总有效生命×总有效伤害」；关键结论是统率经验应集中喂给本来就高统率的队长（含 MC），而非分散投资。">二、Lanchester 平方律与 统率</a><span class="mod-guide">讲统率（领导力）收益递增的 Lanchester 平方律：同质部队战力约与数量平方成正比，修正后近似「总有效生命×总有效伤害」；关键结论是统率经验应集中喂给本来就高统率的队长（含 MC），而非分散投资。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#magic-fatigue" class="mod-link" title="解释魔法疲劳机制：同一玩家阶段内多次战斗会逐步削弱法系效果（治疗、法师、神谕者等），在新阶段开始时重置；给出受／不受影响对象清单与三段式疲劳公式，并提醒荒谬难度下法系打 2–3 场后近乎失效，依赖治疗坦的队伍每阶段不能连坦太多场。">三、Magic Fatigue（魔法疲劳）</a><span class="mod-guide">解释魔法疲劳机制：同一玩家阶段内多次战斗会逐步削弱法系效果（治疗、法师、神谕者等），在新阶段开始时重置；给出受／不受影响对象清单与三段式疲劳公式，并提醒荒谬难度下法系打 2–3 场后近乎失效，依赖治疗坦的队伍每阶段不能连坦太多场。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#ai" class="mod-link" title="针对 Legend 更新后的高难度敌方 AI：整章固定行动顺序，远程小队通常先动；把 AI 分为 Aggressive（激进）、Passive（被动）、另有按队长远近决定行为的类型，并说明被动组会因任一成员进入射程而全组转攻，适合想预判敌人">四、敌方 AI 行为</a><span class="mod-guide">针对 Legend 更新后的高难度敌方 AI：整章固定行动顺序，远程小队通常先动；把 AI 分为 Aggressive（激进）、Passive（被动）、另有按队长远近决定行为的类型，并说明被动组会因任一成员进入射程而全组转攻，适合想预判敌人走位的玩家。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#_6" class="mod-link" title="梳理五种移动类型（重装／轻步兵／重／轻骑兵／飞行）的机动、地形与伏击差异，指出游戏提示常省略 heavy、步兵泛指轻重步兵；并解释伏击的触发条件，是编队与走位的基础参考。">五、小队 移动类型与 伏击</a><span class="mod-guide">梳理五种移动类型（重装／轻步兵／重／轻骑兵／飞行）的机动、地形与伏击差异，指出游戏提示常省略 heavy、步兵泛指轻重步兵；并解释伏击的触发条件，是编队与走位的基础参考。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#_7" class="mod-link" title="以 Version 1.10.23 LEGENDS 为口径的总伤害公式：属性高于 SoftCap 时按边际递减缩放后参与计算（给出 ScaledValue 公式），并逐项铺开攻击力／防御力／DamageMod／DefenseMod 等构成；">六、伤害公式总览</a><span class="mod-guide">以 Version 1.10.23 LEGENDS 为口径的总伤害公式：属性高于 SoftCap 时按边际递减缩放后参与计算（给出 ScaledValue 公式），并逐项铺开攻击力／防御力／DamageMod／DefenseMod 等构成；注明作者声明数据挖掘与实测为主、斜体为未充分验证项，适合想深挖数值的玩家。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#block" class="mod-link" title="讲 Block（阻挡）系统如何决定谁能被选中：同列或相邻列有友军即完全阻挡、近战与非穿透单位无法选中，差一格则目标值减半；并列出气度不凡／深藏不露及重装、戴安娜等目标值修正，是调整站位诱敌或护脆皮的实用依据。">七、Block（阻挡）与目标选择</a><span class="mod-guide">讲 Block（阻挡）系统如何决定谁能被选中：同列或相邻列有友军即完全阻挡、近战与非穿透单位无法选中，差一格则目标值减半；并列出气度不凡／深藏不露及重装、戴安娜等目标值修正，是调整站位诱敌或护脆皮的实用依据。</span></li>
+<li class="mod-item"><span class="mod-no">08</span><a href="#_8" class="mod-link" title="讲掩体与隐藏的 Row Mod：单位前方同排有友军只受 80% 伤害、最多叠到 64%（仅对近战有效）；掩体分直线射击专用与通用两类， Heavy／轻掩体分别减伤 35%／25%，法师攻击完全无视掩体，兵行诡道可绕过；适合规划阵型减伤。">八、掩体</a><span class="mod-guide">讲掩体与隐藏的 Row Mod：单位前方同排有友军只受 80% 伤害、最多叠到 64%（仅对近战有效）；掩体分直线射击专用与通用两类， Heavy／轻掩体分别减伤 35%／25%，法师攻击完全无视掩体，兵行诡道可绕过；适合规划阵型减伤。</span></li>
+<li class="mod-item"><span class="mod-no">09</span><a href="#the-battle-grid" class="mod-link" title="说明战场网格是 3 行×5 列、敌方坐标镜像，AOE 以 3×5 显示红字为目标格；重点提示当前版本 AOE 溅射可能未按预期工作——单位视为 2 列宽且可 targeting 空格，导致很多场景不对称，引用指南 ID3576142012 ">九、战场网格（The Battle Grid）</a><span class="mod-guide">说明战场网格是 3 行×5 列、敌方坐标镜像，AOE 以 3×5 显示红字为目标格；重点提示当前版本 AOE 溅射可能未按预期工作——单位视为 2 列宽且可 targeting 空格，导致很多场景不对称，引用指南 ID3576142012 第 5 节。</span></li>
+<li class="mod-item"><span class="mod-no">10</span><a href="#damagescale-aoe" class="mod-link" title="逐单位／攻击列出 DamageScale 与 AoE 倍率：弓术箭雨每箭 33%、钢弩直线最高 160%、ZwaiHandler／战猫打整行、巨兽同行 75%、冠军剑士二连 80%、百夫长含背后 70% 等，是计算齐射集火伤害的速查表。">十、DamageScale 与 AoE 倍率表</a><span class="mod-guide">逐单位／攻击列出 DamageScale 与 AoE 倍率：弓术箭雨每箭 33%、钢弩直线最高 160%、ZwaiHandler／战猫打整行、巨兽同行 75%、冠军剑士二连 80%、百夫长含背后 70% 等，是计算齐射集火伤害的速查表。</span></li>
+<li class="mod-item"><span class="mod-no">11</span><a href="#element-rates" class="mod-link" title="列出各职业的元素抗性（仅非 100% 项）：骑兵／骑士箭抗 75%、非 T4 法系对四系 -25%、龙对所有龙 200% 且红银蓝龙各自带元素减伤、Risen／卫兵／圣骑士的特殊抗性，并标注女武神、侍僧、暗／亡灵法师等例外，来源 ID357">十一、元素抗性（Element Rates）</a><span class="mod-guide">列出各职业的元素抗性（仅非 100% 项）：骑兵／骑士箭抗 75%、非 T4 法系对四系 -25%、龙对所有龙 200% 且红银蓝龙各自带元素减伤、Risen／卫兵／圣骑士的特殊抗性，并标注女武神、侍僧、暗／亡灵法师等例外，来源 ID3576142012 第 7 节。</span></li>
+<li class="mod-item"><span class="mod-no">12</span><a href="#_9" class="mod-link" title="讲命中与暴击的完整判定：三骰（0~100／115／130）低于 HitThreshold 记成功，按成功数分为 Strong／Normal／Glancing／Miss，给出 HitThreshold 公式与下限 2；并列出致命一击、必中等特">十二、命中、命中类型与暴击</a><span class="mod-guide">讲命中与暴击的完整判定：三骰（0~100／115／130）低于 HitThreshold 记成功，按成功数分为 Strong／Normal／Glancing／Miss，给出 HitThreshold 公式与下限 2；并列出致命一击、必中等特质与暴击倍率，适合理解输出稳定性。</span></li>
+<li class="mod-item"><span class="mod-no">13</span><a href="#_10" class="mod-link" title="汇总影响伤害的特质、道具与杂项机制：Phalanx 借友军武器／护甲加成、振奋军心／高筑街垒的整列攻防增益（在减防前生效， hence 比看上去强）、百发百中与斩钢之剑对法师也有效、伤害修正的加总与相乘顺序，是进阶配装与特质搭配的依据。">十三、特质、道具与杂项机制</a><span class="mod-guide">汇总影响伤害的特质、道具与杂项机制：Phalanx 借友军武器／护甲加成、振奋军心／高筑街垒的整列攻防增益（在减防前生效， hence 比看上去强）、百发百中与斩钢之剑对法师也有效、伤害修正的加总与相乘顺序，是进阶配装与特质搭配的依据。</span></li>
+<li class="mod-item"><span class="mod-no">14</span><a href="#_11" class="mod-link" title="列出可从职业推知的隐藏特质与特性：圣骑士对法系／盗贼等 +50%、战猫／巨兽的夜间 stalk 与巨兽专属 antigun、散兵／游侠的 antigun，以及游侠弩的 Snipe（更集中打脆皮），来源 ID3576142012 第 10 节">十四、隐藏特质与特性</a><span class="mod-guide">列出可从职业推知的隐藏特质与特性：圣骑士对法系／盗贼等 +50%、战猫／巨兽的夜间 stalk 与巨兽专属 antigun、散兵／游侠的 antigun，以及游侠弩的 Snipe（更集中打脆皮），来源 ID3576142012 第 10 节。</span></li>
+<li class="mod-item"><span class="mod-no">15</span><a href="#attackmod" class="mod-link" title="给出时间与天气按亲和提供的 AttackMod 表：地系在黎明／黄昏或多云获 +5%、水系雨雪风暴 +5%～10%、雷系风暴 +15% 但阴天 -5%、火系晴天 +5% 但雪天 -5% 等；多个增益先加总再入攻击修正，适合追求极限伤害时对照">十五、时间、天气与亲和度（AttackMod）</a><span class="mod-guide">给出时间与天气按亲和提供的 AttackMod 表：地系在黎明／黄昏或多云获 +5%、水系雨雪风暴 +5%～10%、雷系风暴 +15% 但阴天 -5%、火系晴天 +5% 但雪天 -5% 等；多个增益先加总再入攻击修正，适合追求极限伤害时对照。</span></li>
+<li class="mod-item"><span class="mod-no">16</span><a href="#_12" class="mod-link" title="汇总地形效果与叠加：高地远程 ±10%、森林／堡垒／营地／墙各自减伤与闪避、沼泽 -25% 闪避，强调墙同时算高地故可叠到减伤 32.5%；并说明游击／打了就跑／就地驻扎等特质与地形的互动，是选场地布阵的参考。">十六、地形</a><span class="mod-guide">汇总地形效果与叠加：高地远程 ±10%、森林／堡垒／营地／墙各自减伤与闪避、沼泽 -25% 闪避，强调墙同时算高地故可叠到减伤 32.5%；并说明游击／打了就跑／就地驻扎等特质与地形的互动，是选场地布阵的参考。</span></li>
+<li class="mod-item"><span class="mod-no">17</span><a href="#_13" class="mod-link" title="解释士气（-20~120、基准 50，七档状态）与投降机制：击杀队长或打崩士气可逼整队投降，投降给金币与科技点；结合高士气带来的攻击加成与溃逃阈值，说明为何投降是刷资源与快速减员的核心手段。">十七、士气与投降</a><span class="mod-guide">解释士气（-20~120、基准 50，七档状态）与投降机制：击杀队长或打崩士气可逼整队投降，投降给金币与科技点；结合高士气带来的攻击加成与溃逃阈值，说明为何投降是刷资源与快速减员的核心手段。</span></li>
+<li class="mod-item"><span class="mod-no">18</span><a href="#_14" class="mod-link" title="用两个完整算例演示伤害公式如何套用：骑士打骠骑兵（含 Phalanx 借甲、超 SoftCap 缩放、战术与掩体修正，结果约 54.35）与暗法师打女武神，逐步骤展示 BaseAttack／BaseDefense／修正的代入过程，适合对照公">十八、伤害公式数值算例</a><span class="mod-guide">用两个完整算例演示伤害公式如何套用：骑士打骠骑兵（含 Phalanx 借甲、超 SoftCap 缩放、战术与掩体修正，结果约 54.35）与暗法师打女武神，逐步骤展示 BaseAttack／BaseDefense／修正的代入过程，适合对照公式自查。</span></li>
+<li class="mod-item"><span class="mod-no">19</span><a href="#stat-growth" class="mod-link" title="讲属性成长由亲和度决定（并随天气影响命中／暴击），给出亲和→角色定位映射表：地＝坦、水＝治疗、雷＝盗贼／刺客、火＝物理输出、暗＝施法者／龙、轻＝队长；说明亲和可在后期更改，是规划单位定位与转职的依据。">十九、属性成长（Stat Growth）</a><span class="mod-guide">讲属性成长由亲和度决定（并随天气影响命中／暴击），给出亲和→角色定位映射表：地＝坦、水＝治疗、雷＝盗贼／刺客、火＝物理输出、暗＝施法者／龙、轻＝队长；说明亲和可在后期更改，是规划单位定位与转职的依据。</span></li>
+<li class="mod-item"><span class="mod-no">20</span><a href="#character" class="mod-link" title="对照指南原文梳理角色特质：领袖特性影响全队且不能传授、只在市场／集市新单位上出现，Unit 特性可教给任意单位（如顺手牵羊是主要金币来源），并说明雇佣兵特质随时间降为忠心耿耿、领袖特性不占可学空间，来源 ID2852514526 第 2 节">二十、角色特质（Character 特性）</a><span class="mod-guide">对照指南原文梳理角色特质：领袖特性影响全队且不能传授、只在市场／集市新单位上出现，Unit 特性可教给任意单位（如顺手牵羊是主要金币来源），并说明雇佣兵特质随时间降为忠心耿耿、领袖特性不占可学空间，来源 ID2852514526 第 2 节。</span></li>
+<li class="mod-item"><span class="mod-no">21</span><a href="#_15" class="mod-link" title="讲小队编制的两层要点：分类按多数单位决定（步兵／轻步兵／骑兵／轻骑兵／飞行，附伏击／Charge 等加成），飞行队近乎破坏游戏但混入骑兵或炮即落地；站位方面 guardian 特质可掩护身后单位，一格可同时护两人，适合优化阵型。">二十一、队伍编制（小队 编队）</a><span class="mod-guide">讲小队编制的两层要点：分类按多数单位决定（步兵／轻步兵／骑兵／轻骑兵／飞行，附伏击／Charge 等加成），飞行队近乎破坏游戏但混入骑兵或炮即落地；站位方面 guardian 特质可掩护身后单位，一格可同时护两人，适合优化阵型。</span></li>
+<li class="mod-item"><span class="mod-no">22</span><a href="#_16" class="mod-link" title="讲三色龙的机制与进化：唯一飞行单位、每队只能放 3 条（每条占约 2 格），转职即进化且伤害由力量＋魔法组合决定；列出红龙（魔法／高伤）、银龙（力量／坦）、蓝龙（灵巧／均衡）的主属性与最佳亲和，适合想养龙的玩家。">二十二、龙与三色进化</a><span class="mod-guide">讲三色龙的机制与进化：唯一飞行单位、每队只能放 3 条（每条占约 2 格），转职即进化且伤害由力量＋魔法组合决定；列出红龙（魔法／高伤）、银龙（力量／坦）、蓝龙（灵巧／均衡）的主属性与最佳亲和，适合想养龙的玩家。</span></li>
+</ul></details>
+<details class="toc-chapter" open>
+<summary><a href="#_17" class="chap-link">第二章 军队编成与小队原型</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#_19" class="mod-link" title="讲小队编制的基础机制：第 1 章后可从管理军队新建小队，核心是找高统率单位当队长（队长统率＝小队最大容量）；容量消耗为基础 10、第 6 人起每人 +2，并受忠诚、队长特质、难度与单位类型影响；随后展开忠诚度的波动与影响，来源 ID3047">一、小队编制基础机制</a><span class="mod-guide">讲小队编制的基础机制：第 1 章后可从管理军队新建小队，核心是找高统率单位当队长（队长统率＝小队最大容量）；容量消耗为基础 10、第 6 人起每人 +2，并受忠诚、队长特质、难度与单位类型影响；随后展开忠诚度的波动与影响，来源 ID3047633233。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#_20" class="mod-link" title="给出九类小队原型（主力攻坚／近战杀手／龙／火炮／治疗者等）的总览表，按资源、所需统率、属性投入与移动类型逐项对比；结论是先定角色再构建，并点明各类队的资源与统率门槛差异，作为后续详细配置的索引。">二、九类小队原型总览</a><span class="mod-guide">给出九类小队原型（主力攻坚／近战杀手／龙／火炮／治疗者等）的总览表，按资源、所需统率、属性投入与移动类型逐项对比；结论是先定角色再构建，并点明各类队的资源与统率门槛差异，作为后续详细配置的索引。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#_21" class="mod-link" title="逐类给出九类小队原型的详细配置：主力攻坚用前排三重装＋剑圣＋后排坦、神器与角色选择，并覆盖其余原型的前中后排、神器、特质与操作要点；强调主力攻坚应冲在阵列最前引敌反击、靠渴血击杀续航，是编队的核心实操章节。">三、九类小队原型详细配置</a><span class="mod-guide">逐类给出九类小队原型的详细配置：主力攻坚用前排三重装＋剑圣＋后排坦、神器与角色选择，并覆盖其余原型的前中后排、神器、特质与操作要点；强调主力攻坚应冲在阵列最前引敌反击、靠渴血击杀续航，是编队的核心实操章节。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#_22" class="mod-link" title="按剧情角色逐个推荐其适合的小队定位：戴安娜适合主力攻坚／近战杀手、MC 适合治疗与副坦、碧翠丝是天然小队杀手、斯泰凡唯一能防守背刺等；给出理由与适配特质，帮助把剧情角色放进最合适的队。">四、剧情角色推荐</a><span class="mod-guide">按剧情角色逐个推荐其适合的小队定位：戴安娜适合主力攻坚／近战杀手、MC 适合治疗与副坦、碧翠丝是天然小队杀手、斯泰凡唯一能防守背刺等；给出理由与适配特质，帮助把剧情角色放进最合适的队。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#id3166407626" class="mod-link" title="从全局讲军队编成：目标是配够进攻队（单阶段消灭进入射程的多数敌队）与防御队（每战线一支可复用、或用诱饵触发被动敌群），治疗队按主力攻坚与龙队数量配套；并比较近战以骑兵还是步兵为主——步兵清图快、骑兵推进强敌更安全，来源 ID31664076">五、军队编成总论（ID3166407626）</a><span class="mod-guide">从全局讲军队编成：目标是配够进攻队（单阶段消灭进入射程的多数敌队）与防御队（每战线一支可复用、或用诱饵触发被动敌群），治疗队按主力攻坚与龙队数量配套；并比较近战以骑兵还是步兵为主——步兵清图快、骑兵推进强敌更安全，来源 ID3166407626。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#id2924897665" class="mod-link" title="给出兵种优先级与军队建设路线：龙＞炮＞重骑兵＞其余 Nephilim＞重步兵＞轻步兵／轻骑兵，并说明适用 Patch 1.03、军阀难度且不适用于永久死亡；随后展开龙、炮队等高分兵种的购置、亲和与配队细节，来源 ID2924897665。">六、兵种优先级与军队建设（ID2924897665）</a><span class="mod-guide">给出兵种优先级与军队建设路线：龙＞炮＞重骑兵＞其余 Nephilim＞重步兵＞轻步兵／轻骑兵，并说明适用 Patch 1.03、军阀难度且不适用于永久死亡；随后展开龙、炮队等高分兵种的购置、亲和与配队细节，来源 ID2924897665。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#cp-id2924897665" class="mod-link" title="承接上一篇给出科技、神器、特质、亲和、CP 与佣兵的规划：科技先工艺与技术再战争学院、战术指挥不超 5 点直到解锁膛线火炮与龙的传人；传说神器按时间制御器＞翠玉神像等优先级列出，是中期资源分配与长线养成的指南，来源 ID2924897665">七、科技、神器、特质、亲和、CP 与佣兵（ID2924897665）</a><span class="mod-guide">承接上一篇给出科技、神器、特质、亲和、CP 与佣兵的规划：科技先工艺与技术再战争学院、战术指挥不超 5 点直到解锁膛线火炮与龙的传人；传说神器按时间制御器＞翠玉神像等优先级列出，是中期资源分配与长线养成的指南，来源 ID2924897665。</span></li>
+<li class="mod-item"><span class="mod-no">08</span><a href="#id2852514526" class="mod-link" title="聚焦龙的定位与威胁值：重述龙作为唯一飞行单位、每队放 3 条及红银蓝三色进化表，并从威胁值角度说明其在敌 AI 目标选择中的地位；帮助理解为何龙队能吸引火力又难以被近战触及，来源 ID2852514526。">八、龙的定位与威胁值（ID2852514526）</a><span class="mod-guide">聚焦龙的定位与威胁值：重述龙作为唯一飞行单位、每队放 3 条及红银蓝三色进化表，并从威胁值角度说明其在敌 AI 目标选择中的地位；帮助理解为何龙队能吸引火力又难以被近战触及，来源 ID2852514526。</span></li>
+<li class="mod-item"><span class="mod-no">09</span><a href="#id2841924953" class="mod-link" title="给出一份第 12 章的 15 队成军模板（4 坦克、1 盗窃、2 骑兵、1 炮、1 龙、4 骑弓、2 医疗），逐队标注负责角色；可作为高难度终盘编队的参照范例，来源 ID2841924953。">九、队伍模板（ID2841924953）</a><span class="mod-guide">给出一份第 12 章的 15 队成军模板（4 坦克、1 盗窃、2 骑兵、1 炮、1 龙、4 骑弓、2 医疗），逐队标注负责角色；可作为高难度终盘编队的参照范例，来源 ID2841924953。</span></li>
+<li class="mod-item"><span class="mod-no">10</span><a href="#_23" class="mod-link" title="列出本章采用的五份指南（ID3166407626、2924897665、2852514526、3047633233、2841924953）及其原标题、作者与采用内容，作为第二章各结论的来源索引与交叉核对入口。">十、本章来源指南一览</a><span class="mod-guide">列出本章采用的五份指南（ID3166407626、2924897665、2852514526、3047633233、2841924953）及其原标题、作者与采用内容，作为第二章各结论的来源索引与交叉核对入口。</span></li>
+</ul></details>
+<details class="toc-chapter">
+<summary><a href="#_24" class="chap-link">第三章 转职系统与独特佣兵</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#full-promotion-tree" class="mod-link" title="整理指南 ID2819992940 的完整职业晋升树：先列元数据（作者 Klokinator、4 星、23615 访客等），再以图转录逐级列出各职业的转职去向、属性／材料门槛与 xN 倍率；是查「某职业能转成什么、需要什么」的权威速查，数据">第一节 · Full 职业 Promotion Tree（完整职业晋升树）</a><span class="mod-guide">整理指南 ID2819992940 的完整职业晋升树：先列元数据（作者 Klokinator、4 星、23615 访客等），再以图转录逐级列出各职业的转职去向、属性／材料门槛与 xN 倍率；是查「某职业能转成什么、需要什么」的权威速查，数据按原图逐项抄录未作臆断。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#full-unit-tree" class="mod-link" title="整理指南 ID2915841965 的完整单位树：给出元数据（作者 em_dash、4 星等），并按图转录单位间的晋升／分支关系，与上一篇职业树相互印证；适合核对具体单位的完整晋升链与分支条件。">第二节 · Full Unit Tree（完整单位树）</a><span class="mod-guide">整理指南 ID2915841965 的完整单位树：给出元数据（作者 em_dash、4 星等），并按图转录单位间的晋升／分支关系，与上一篇职业树相互印证；适合核对具体单位的完整晋升链与分支条件。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#all-unique-mercenaries" class="mod-link" title="整理指南 ID2870421162 的全部独特佣兵：给出元数据（作者 Horthas、4 星、18933 访客等），并按图转录每名独特佣兵的可用职业、起始特质与特性；是收集党的点名册，也包括评论区对 DLC 增补的说明。">第三节 · All Unique Mercenaries（全部独特佣兵）</a><span class="mod-guide">整理指南 ID2870421162 的全部独特佣兵：给出元数据（作者 Horthas、4 星、18933 访客等），并按图转录每名独特佣兵的可用职业、起始特质与特性；是收集党的点名册，也包括评论区对 DLC 增补的说明。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#_25" class="mod-link" title="对前三篇职业／单位／佣兵指南做交叉说明与可信度提示：三篇一致之处（勇士→士兵系、龙链等）与两处玩家指正（枪炮系并非仅男性、部分特性为作者后加），并说明图表数字含义未定义故不臆断；提醒指南 1、2 未覆盖 1.10 与 DLC。">交叉说明与可信度提示</a><span class="mod-guide">对前三篇职业／单位／佣兵指南做交叉说明与可信度提示：三篇一致之处（勇士→士兵系、龙链等）与两处玩家指正（枪炮系并非仅男性、部分特性为作者后加），并说明图表数字含义未定义故不臆断；提醒指南 1、2 未覆盖 1.10 与 DLC。</span></li>
+</ul></details>
+<details class="toc-chapter">
+<summary><a href="#_26" class="chap-link">第四章 科技树装备与神器</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#_28" class="mod-link" title="以一名三阶战弓手（冈特）的面板为例拆解属性页：血量、等级、XP／CP（经验与职业经验的区别与获取方式）、元素亲和修正表等；帮助新手读懂角色界面，并理解亲和改变会直接影响属性与天气强度。">一、属性基础详解</a><span class="mod-guide">以一名三阶战弓手（冈特）的面板为例拆解属性页：血量、等级、XP／CP（经验与职业经验的区别与获取方式）、元素亲和修正表等；帮助新手读懂角色界面，并理解亲和改变会直接影响属性与天气强度。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#_29" class="mod-link" title="分类列出单位特质：普通特质（奥法之盾／之力／之速、刺客之心等，部分卷轴学习、部分自带）及效果，作为配装与技能选择的速查表；与职业／装备章节配合决定特质搭配。">二、特性 特质</a><span class="mod-guide">分类列出单位特质：普通特质（奥法之盾／之力／之速、刺客之心等，部分卷轴学习、部分自带）及效果，作为配装与技能选择的速查表；与职业／装备章节配合决定特质搭配。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#148" class="mod-link" title="按原图编号列出 1–48 号兵种及转职路线：每笔标注阶级、阵营、移动类型、资源与战斗方式、转职消耗的属性阈值与物资；强调缺失编号原笔记未出现故不补全，是查「某兵种怎么转、要什么资源」的核心图鉴，来源 ID 2900845198 第 9 节。">三、兵种及转职路线（1–48 号）</a><span class="mod-guide">按原图编号列出 1–48 号兵种及转职路线：每笔标注阶级、阵营、移动类型、资源与战斗方式、转职消耗的属性阈值与物资；强调缺失编号原笔记未出现故不补全，是查「某兵种怎么转、要什么资源」的核心图鉴，来源 ID 2900845198 第 9 节。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#_30" class="mod-link" title="列出消耗道具：重命名／XP／CP 卷轴的用途与限制，三阶／四阶满职业经验后的进阶证明，以及提升力量／魔力／敏捷／血量／统率的道具；关键结论是统率提升在 50 以下 +3、50～60 +2、60 以上 +1 且 70 后失效，但非光单位提到 ">四、消耗道具</a><span class="mod-guide">列出消耗道具：重命名／XP／CP 卷轴的用途与限制，三阶／四阶满职业经验后的进阶证明，以及提升力量／魔力／敏捷／血量／统率的道具；关键结论是统率提升在 50 以下 +3、50～60 +2、60 以上 +1 且 70 后失效，但非光单位提到 70 后转光可继续提升。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#_31" class="mod-link" title="完整列出四阶科技树：按一阶（一张科技券）到四阶逐级罗列科技名称与效果，如学徒训练、导师制度（队员按队长统率获至少 10% 增益）、商人特使等；是规划科技研究顺序与解锁条件的全表。">五、科技树（四阶全表）</a><span class="mod-guide">完整列出四阶科技树：按一阶（一张科技券）到四阶逐级罗列科技名称与效果，如学徒训练、导师制度（队员按队长统率获至少 10% 增益）、商人特使等；是规划科技研究顺序与解锁条件的全表。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#_32" class="mod-link" title="按白／绿／蓝／紫／橙稀有度完整复现装备属性表：列为装备名称、血上限、防御、容量、力量、魔力、敏捷与特殊效果，含时间制御器、索哈的血之碎片、圣特蕾莎的冠冕等；是查装备数值与特效的权威表，原文表格未作删改。">六、装备图鉴（白／绿／蓝／紫／橙）</a><span class="mod-guide">按白／绿／蓝／紫／橙稀有度完整复现装备属性表：列为装备名称、血上限、防御、容量、力量、魔力、敏捷与特殊效果，含时间制御器、索哈的血之碎片、圣特蕾莎的冠冕等；是查装备数值与特效的权威表，原文表格未作删改。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#artifact-catalog" class="mod-link" title="整理神器目录（Artifact Catalog，Patch 1.10.04＋DLC，来源 ID 2829088965）：说明神器按稀有度分节、按字母序排列、每件每队只能装一次；并注明原指南以截图为主、具体数值未逐一转录，详细属性以本章第六节">七、神器目录（Artifact Catalog）</a><span class="mod-guide">整理神器目录（Artifact Catalog，Patch 1.10.04＋DLC，来源 ID 2829088965）：说明神器按稀有度分节、按字母序排列、每件每队只能装一次；并注明原指南以截图为主、具体数值未逐一转录，详细属性以本章第六节装备表为准，不作推测。</span></li>
+</ul></details>
+<details class="toc-chapter">
+<summary><a href="#_33" class="chap-link">第五章 成就与角色羁绊</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#_35" class="mod-link" title="列出本章覆盖的六份指南（ID2820138833、2825361167、2826978104、2890011748、2883713836、2938894219）的原标题、作者、评分／时间与版本说明；其中第 12 章相关指南明确标注了难度口径">本章覆盖的指南</a><span class="mod-guide">列出本章覆盖的六份指南（ID2820138833、2825361167、2826978104、2890011748、2883713836、2938894219）的原标题、作者、评分／时间与版本说明；其中第 12 章相关指南明确标注了难度口径与「补丁已封堵刷级」的时效性，作为第五章的来源索引。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#100-id-2820138833" class="mod-link" title="整理指南 ID2820138833 的 100% 成就总览：19 项成就全为离线、成就难度中等，并给出可 Ctrl+F 检索的成就列表与说明；作者称仍在持续更新，适合成就党按表逐项核对进度。">一、100% 成就总览与全部成就（ID 2820138833）</a><span class="mod-guide">整理指南 ID2820138833 的 100% 成就总览：19 项成就全为离线、成就难度中等，并给出可 Ctrl+F 检索的成就列表与说明；作者称仍在持续更新，适合成就党按表逐项核对进度。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#id-2825361167" class="mod-link" title="整理指南 ID2825361167 的全角色羁绊：约 15 名关键角色、章节间在基地 Support 区通过「对话」建立关系，先朋友后深层；重要结论是周目内羁绊一旦形成不可解除且会关闭其他选项，含剧透警告，⭐ 标正统配对但不强制，建议通关一">二、全角色关系／羁绊指南（ID 2825361167）</a><span class="mod-guide">整理指南 ID2825361167 的全角色羁绊：约 15 名关键角色、章节间在基地 Support 区通过「对话」建立关系，先朋友后深层；重要结论是周目内羁绊一旦形成不可解除且会关闭其他选项，含剧透警告，⭐ 标正统配对但不强制，建议通关一次后再看。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#12-id-2826978104" class="mod-link" title="给出指南 ID2826978104 的军阀难度第 12 章两阶段打法：目标是在第 12 章全灭敌队拿成就（而非仅杀 Teremor 拿 S），必须自第 1 章起准备；第一阶段靠谨慎站位欺骗 AI 寻路、封右侧防敌军占基地，适合追求可靠、不依">三、击败第 12 章并获得成就——军阀 难度两阶段打法（ID 2826978104）</a><span class="mod-guide">给出指南 ID2826978104 的军阀难度第 12 章两阶段打法：目标是在第 12 章全灭敌队拿成就（而非仅杀 Teremor 拿 S），必须自第 1 章起准备；第一阶段靠谨慎站位欺骗 AI 寻路、封右侧防敌军占基地，适合追求可靠、不依赖 RNG 的成就党。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#how-id-2890011748" class="mod-link" title="介绍指南 ID2890011748 的单兵诱饵邪道：利用 AI 优先攻击战力最低军队的设定，组一支仅 1 兵的小队、配永存药水与减伤神器／特性专门吃炮击，把炮车从等式中移除，让脆皮主力免遭轰击；但怕法师与枪兵突击，须靠队友守护侧翼与地形挡近">四、在 &quot;...How?&quot; 成就中应对炮车——单兵诱饵邪道（ID 2890011748）</a><span class="mod-guide">介绍指南 ID2890011748 的单兵诱饵邪道：利用 AI 优先攻击战力最低军队的设定，组一支仅 1 兵的小队、配永存药水与减伤神器／特性专门吃炮击，把炮车从等式中移除，让脆皮主力免遭轰击；但怕法师与枪兵突击，须靠队友守护侧翼与地形挡近战。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#12-how-id-2883713836" class="mod-link" title="给出指南 ID2883713836 的简单难度第 12 章打法：核心是每支小队至少 1 名火法（冰／雷需 2 名）一回合抹掉整排枪兵／攻城炮，配哨兵反火器反骑兵，龙可作替代但需同队 2–3 条；并给出右侧部署等具体执行细节。">五、第 12 章 &quot;...How?&quot; 简单难度打法（ID 2883713836）</a><span class="mod-guide">给出指南 ID2883713836 的简单难度第 12 章打法：核心是每支小队至少 1 名火法（冰／雷需 2 名）一回合抹掉整排枪兵／攻城炮，配哨兵反火器反骑兵，龙可作替代但需同队 2–3 条；并给出右侧部署等具体执行细节。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#12-howid-2938894219" class="mod-link" title="给出指南 ID2938894219 的上尉难度不重开打法：靠青铜竞技场刷级到约 20 级、低威胁高防坦队搭配更高威胁治疗与进攻队，利用 AI 打最低威胁队的原理拿「How?」成就；文末明确提示后续补丁已封堵刷级漏洞、本指南不再适用。">六、上尉难度不重新开始打第 12 章 &quot;How?&quot;（ID 2938894219）</a><span class="mod-guide">给出指南 ID2938894219 的上尉难度不重开打法：靠青铜竞技场刷级到约 20 级、低威胁高防坦队搭配更高威胁治疗与进攻队，利用 AI 打最低威胁队的原理拿「How?」成就；文末明确提示后续补丁已封堵刷级漏洞、本指南不再适用。</span></li>
+<li class="mod-item"><span class="mod-no">08</span><a href="#id-3219175546" class="mod-link" title="补充简体中文指南 ID3219175546 的全成就攻略：覆盖 16 项成就（含第 11／12／15／27 关难点），难度与章节编号口径与英文指南不同（如 Caretaker 记为第 15 章、共 4 个难度），按原文并列保留供交叉判断；并">七、补充：全成就攻略（简体中文，ID 3219175546）</a><span class="mod-guide">补充简体中文指南 ID3219175546 的全成就攻略：覆盖 16 项成就（含第 11／12／15／27 关难点），难度与章节编号口径与英文指南不同（如 Caretaker 记为第 15 章、共 4 个难度），按原文并列保留供交叉判断；并给出序章基础与成就达成表。</span></li>
+<li class="mod-item"><span class="mod-no">09</span><a href="#12-how" class="mod-link" title="把六份第 12 章「How?」成就指南横向对照：按难度、核心思路、关键手段逐行列出 yahiko 两阶段、Xyranius 单兵诱饵、LDV 火法激进、AAA Owl 竞技场刷级（已失效）、奏者剧情杀等方案；结尾重申不同口径并列保留、图片小">八、第 12 章 &quot;...How?&quot; 打法横向对照小结</a><span class="mod-guide">把六份第 12 章「How?」成就指南横向对照：按难度、核心思路、关键手段逐行列出 yahiko 两阶段、Xyranius 单兵诱饵、LDV 火法激进、AAA Owl 竞技场刷级（已失效）、奏者剧情杀等方案；结尾重申不同口径并列保留、图片小节未臆造，适合按自身难度挑选打法。</span></li>
+</ul></details>
+<details class="toc-chapter">
+<summary><a href="#_36" class="chap-link">第六章 战役流程与高难度打法</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#_37" class="mod-link" title="本章标题以三级标题形式重复出现，正文仅有一句忠实整理自指定指南、逐节标注来源 ID 的声明；它标志第六章「战役流程与高难度打法」的开始而非一个知识模块，读者可直接从下方目录进入各实质小节。">第六章 战役流程与高难度打法</a><span class="mod-guide">本章标题以三级标题形式重复出现，正文仅有一句忠实整理自指定指南、逐节标注来源 ID 的声明；它标志第六章「战役流程与高难度打法」的开始而非一个知识模块，读者可直接从下方目录进入各实质小节。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#_38" class="mod-link" title="第六章章内目录，以编号列表给出六节锚点链接：各章节详情、有集市章节、第 12 章最高难度打法、荒谬难度全 S 指南、荒谬难度军队配置、最终 Boss 第 30 关；仅是章内重复导航、无实质攻略内容，读者可用它快速跳转到目标小节。">目录</a><span class="mod-guide">第六章章内目录，以编号列表给出六节锚点链接：各章节详情、有集市章节、第 12 章最高难度打法、荒谬难度全 S 指南、荒谬难度军队配置、最终 Boss 第 30 关；仅是章内重复导航、无实质攻略内容，读者可用它快速跳转到目标小节。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#30-5" class="mod-link" title="给出 30 章＋5 支线的全表：逐章列出场景、固定与总数部署、目标、持续回合、挑战、是否有集市及事件备注（来源 ID2883231728）；「固定」为剧情锁定出战角色，是查任一章关卡参数与剧情节点的完整索引。">一、各章节详情（30 章 + 5 支线全表）</a><span class="mod-guide">给出 30 章＋5 支线的全表：逐章列出场景、固定与总数部署、目标、持续回合、挑战、是否有集市及事件备注（来源 ID2883231728）；「固定」为剧情锁定出战角色，是查任一章关卡参数与剧情节点的完整索引。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#_39" class="mod-link" title="列出截至 2023-04-03 的全部有集市章节（来源 ID2957280382），逐章编号并附注特殊条件（如第 8 章需 3000 金币买拉斯库亚）；目的是帮玩家提前备足金币、按需购物，甚至实现「以 15 条龙通关」。">二、有集市的章节</a><span class="mod-guide">列出截至 2023-04-03 的全部有集市章节（来源 ID2957280382），逐章编号并附注特殊条件（如第 8 章需 3000 金币买拉斯库亚）；目的是帮玩家提前备足金币、按需购物，甚至实现「以 15 条龙通关」。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#12_2" class="mod-link" title="给出指南 ID2848545014 的第 12 章最高难度＋永久死亡无刷级打法：口号是不刷级、不用漏洞、不依赖 RNG、不降难度；准备期建议开新档、以重步兵／重骑兵／治疗者／大量法师为主并避免轻装与龙，必须抢学徒解锁与重甲加成等科技，适合硬">三、第 12 章最高难度＋永久死亡无刷级打法</a><span class="mod-guide">给出指南 ID2848545014 的第 12 章最高难度＋永久死亡无刷级打法：口号是不刷级、不用漏洞、不依赖 RNG、不降难度；准备期建议开新档、以重步兵／重骑兵／治疗者／大量法师为主并避免轻装与龙，必须抢学徒解锁与重甲加成等科技，适合硬核无取巧玩家。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#s-ldv" class="mod-link" title="整理指南 ID3629504594 的荒谬难度全 S 无取巧完整指南（LDV）：涵盖通用技巧（部署后撤退侦察、剧情单位降级白嫖资源、按 ~ 加速、先攻方优势极大）、军队配置、科技优化、购买指南与每关一招；强调不 SL、不重载集市，是零取巧冲">四、荒谬难度全 S 无取巧完整指南（LDV）</a><span class="mod-guide">整理指南 ID3629504594 的荒谬难度全 S 无取巧完整指南（LDV）：涵盖通用技巧（部署后撤退侦察、剧情单位降级白嫖资源、按 ~ 加速、先攻方优势极大）、军队配置、科技优化、购买指南与每关一招；强调不 SL、不重载集市，是零取巧冲全 S 的实操手册。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#_40" class="mod-link" title="给出指南 ID3033983967 的荒谬难度军队配置（基于 Patch 1.10.04 Legends、不适用于永久死亡）：最终军队由龙、火炮、辅助三部分组成；逐队给出配置要点，如碧翠丝队必备时间制御器、统率堆到 60 后用魔法薄荷堆魔法">五、荒谬难度军队配置指南</a><span class="mod-guide">给出指南 ID3033983967 的荒谬难度军队配置（基于 Patch 1.10.04 Legends、不适用于永久死亡）：最终军队由龙、火炮、辅助三部分组成；逐队给出配置要点，如碧翠丝队必备时间制御器、统率堆到 60 后用魔法薄荷堆魔法、每条龙占 15 容量等，是终盘编队的细表。</span></li>
+<li class="mod-item"><span class="mod-no">08</span><a href="#boss-30" class="mod-link" title="补充繁中指南 ID3484282539 的最终 Boss 第 30 关三阶段打法：说明魔王每 3 回合召唤 12 单位、会放范围黑魔法并周期性躲保护罩；给出兵力门槛（约 20000 战力 3–4 组、骑兵 8000–9000 约 3 组）与">六、最终 Boss 第 30 关打法（繁中版补充）</a><span class="mod-guide">补充繁中指南 ID3484282539 的最终 Boss 第 30 关三阶段打法：说明魔王每 3 回合召唤 12 单位、会放范围黑魔法并周期性躲保护罩；给出兵力门槛（约 20000 战力 3–4 组、骑兵 8000–9000 约 3 组）与 A／B／C 组分工、三阶段推进步骤，供打最终关参考。</span></li>
+<li class="mod-item"><span class="mod-no">09</span><a href="#_41" class="mod-link" title="列出第六章各小节对应的来源指南 ID 与原标题（章节详情 2883231728、集市 2957280382、第 12 章无刷级 2848545014、荒谬全 S 3629504594、军队配置 3033983967、最终 Boss 3484">章节来源汇总</a><span class="mod-guide">列出第六章各小节对应的来源指南 ID 与原标题（章节详情 2883231728、集市 2957280382、第 12 章无刷级 2848545014、荒谬全 S 3629504594、军队配置 3033983967、最终 Boss 3484282539），作为本章内容的来源索引与核对入口。</span></li>
+</ul></details>
+<details class="toc-chapter">
+<summary><a href="#mod" class="chap-link">第七章 刷级赚钱MOD与新手起步与来源附录</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#_42" class="mod-link" title="讲青铜竞技场上篇的刷级原理与完整流程（来源 ID2845711232，明确早于 v1.02、注意时效性）：核心是留着敌方弓箭手不打、来回过回合站着挨吃经验与 CP；并区分新兵与带「雇佣兵」特性的真雇佣兵，给出 Step 0 部队准备，是理解">一、青铜竞技场刷级（上）：原理与完整流程</a><span class="mod-guide">讲青铜竞技场上篇的刷级原理与完整流程（来源 ID2845711232，明确早于 v1.02、注意时效性）：核心是留着敌方弓箭手不打、来回过回合站着挨吃经验与 CP；并区分新兵与带「雇佣兵」特性的真雇佣兵，给出 Step 0 部队准备，是理解刷级流的基础。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#_43" class="mod-link" title="讲青铜竞技场下篇的自动化宏（来源 ID2849619555）：给出 Keystroke 宏（方向键与 C 键的逐步延迟循环）与按住 ~ 的 Speed 宏两张表，并说明用敌方两弓箭手＋骑弓手小队、清掉近战的队伍配置；用于把上篇的挨打刷级流程">二、青铜竞技场刷级（下）：自动化宏</a><span class="mod-guide">讲青铜竞技场下篇的自动化宏（来源 ID2849619555）：给出 Keystroke 宏（方向键与 C 键的逐步延迟循环）与按住 ~ 的 Speed 宏两张表，并说明用敌方两弓箭手＋骑弓手小队、清掉近战的队伍配置；用于把上篇的挨打刷级流程自动化。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#_44" class="mod-link" title="汇总赚钱方法（来源 ID2841924953 等）：盗窃队应做先手、金币按 thievery 单位灵巧与伤害计算（配雷亲和最大化），并列出适合角色；另讲投降每次给 1 科技点与大量金币、溃逃 100% 成功，给出多队配合打士气的执行要点，是">三、赚钱方法汇总</a><span class="mod-guide">汇总赚钱方法（来源 ID2841924953 等）：盗窃队应做先手、金币按 thievery 单位灵巧与伤害计算（配雷亲和最大化），并列出适合角色；另讲投降每次给 1 科技点与大量金币、溃逃 100% 成功，给出多队配合打士气的执行要点，是积累金币与科技点的主要手段。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#tips-and-tricks" class="mod-link" title="汇总实用机制速查（Tips and Tricks，来源 ID2841924953）：按住 ~ 的隐藏加速、单位容量消耗的精确公式（队长固定 10、队员随忠诚 8～12 与第 6 人起 +2 递增，9 人全忠诚无神器需 94 统率）；是日常游">四、实用机制速查（Tips and Tricks）</a><span class="mod-guide">汇总实用机制速查（Tips and Tricks，来源 ID2841924953）：按住 ~ 的隐藏加速、单位容量消耗的精确公式（队长固定 10、队员随忠诚 8～12 与第 6 人起 +2 递增，9 人全忠诚无神器需 94 统率）；是日常游玩与编队计算的便携参考。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#23_4" class="mod-link" title="无剧透的新手起步指南（来源 ID2871845861，覆盖第 2–3 章）：第 2 章先点商人特使＋常备军、招 2 医疗＋1 勇士＋2 民兵并配装，第 3 章把勇士转骑士、民兵转侍僧；适合完全新手照着开局的逐步清单。">五、新手起步：第 2–3 章（无剧透）</a><span class="mod-guide">无剧透的新手起步指南（来源 ID2871845861，覆盖第 2–3 章）：第 2 章先点商人特使＋常备军、招 2 医疗＋1 勇士＋2 民兵并配装，第 3 章把勇士转骑士、民兵转侍僧；适合完全新手照着开局的逐步清单。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#mod_2" class="mod-link" title="介绍无限竞技场代币 MOD（来源 ID2821693132）：用 Cheat Engine 的 RPG VX 自定义类型（值按 2x+1 存储）改代币，需先在商店留 1 个代币、存档读档刷出第 2 个；单次上限 20，且评论区多人反馈新版失">六、无限竞技场代币 MOD</a><span class="mod-guide">介绍无限竞技场代币 MOD（来源 ID2821693132）：用 Cheat Engine 的 RPG VX 自定义类型（值按 2x+1 存储）改代币，需先在商店留 1 个代币、存档读档刷出第 2 个；单次上限 20，且评论区多人反馈新版失效、开发者已封堵部分漏洞，务必注意风险与时效性。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#34_2" class="mod-link" title="附录列出 34 份指南来源清单：逐条给出指南 ID、原标题、作者、语言与对应中文笔记文件，覆盖英／简中／繁中／俄／波兰语，是整篇攻略的溯源总表与交叉查阅入口。">七、附录：34 份指南来源清单</a><span class="mod-guide">附录列出 34 份指南来源清单：逐条给出指南 ID、原标题、作者、语言与对应中文笔记文件，覆盖英／简中／繁中／俄／波兰语，是整篇攻略的溯源总表与交叉查阅入口。</span></li>
+</ul></details>
+</nav></details>
 
 <div class="layout">
   <aside class="sidebar">
     <p class="side-title">章节目录</p>
-    <div class="toc">
-<ul>
-<li><a href="#symphony-of-war-the-nephilim-saga">《Symphony of War: The Nephilim Saga》详尽中文攻略</a><ul>
-<li><a href="#_1">目录</a></li>
-<li><a href="#_2">版本与来源说明</a></li>
-<li><a href="#_3">核心概念速查（新手建议先读）</a></li>
-</ul>
-</li>
-<li><a href="#_4">第一章 核心战斗机制</a><ul>
-<li><a href="#_5">核心战斗机制</a></li>
-</ul>
-</li>
-<li><a href="#_17">第二章 军队编成与小队原型</a><ul>
-<li><a href="#_18">军队编成与小队原型</a></li>
-</ul>
-</li>
-<li><a href="#_24">第三章 转职系统与独特佣兵</a><ul>
-<li><a href="#03">03 转职系统与独特佣兵</a></li>
-</ul>
-</li>
-<li><a href="#_26">第四章 科技树装备与神器</a><ul>
-<li><a href="#_27">第四章 科技树、装备与神器</a></li>
-</ul>
-</li>
-<li><a href="#_33">第五章 成就与角色羁绊</a><ul>
-<li><a href="#_34">五、成就与角色羁绊</a></li>
-</ul>
-</li>
-<li><a href="#_36">第六章 战役流程与高难度打法</a></li>
-<li><a href="#mod">第七章 刷级赚钱MOD与新手起步与来源附录</a><ul>
-<li><a href="#mod_1">第七章 刷级、赚钱、MOD 与新手起步</a></li>
-</ul>
-</li>
-</ul>
-</div>
-
+    <nav class="toc module-toc">
+<details class="toc-chapter" open>
+<summary><a href="#_4" class="chap-link">第一章 核心战斗机制</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#volley" class="mod-link" title="拆解近战交战的基本结构：同类单位独立选目标后同时攻击构成一次 volley（齐射），各类型依次打完为一轮 round，攻守交替；并给出完整近战齐射顺序表，说明多数单位每场参加两轮、法师／火炮／治疗者只有一轮，适合想读懂战斗节奏的新手。">一、Volley（齐射）机制</a><span class="mod-guide">拆解近战交战的基本结构：同类单位独立选目标后同时攻击构成一次 volley（齐射），各类型依次打完为一轮 round，攻守交替；并给出完整近战齐射顺序表，说明多数单位每场参加两轮、法师／火炮／治疗者只有一轮，适合想读懂战斗节奏的新手。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#lanchester" class="mod-link" title="讲统率（领导力）收益递增的 Lanchester 平方律：同质部队战力约与数量平方成正比，修正后近似「总有效生命×总有效伤害」；关键结论是统率经验应集中喂给本来就高统率的队长（含 MC），而非分散投资。">二、Lanchester 平方律与 统率</a><span class="mod-guide">讲统率（领导力）收益递增的 Lanchester 平方律：同质部队战力约与数量平方成正比，修正后近似「总有效生命×总有效伤害」；关键结论是统率经验应集中喂给本来就高统率的队长（含 MC），而非分散投资。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#magic-fatigue" class="mod-link" title="解释魔法疲劳机制：同一玩家阶段内多次战斗会逐步削弱法系效果（治疗、法师、神谕者等），在新阶段开始时重置；给出受／不受影响对象清单与三段式疲劳公式，并提醒荒谬难度下法系打 2–3 场后近乎失效，依赖治疗坦的队伍每阶段不能连坦太多场。">三、Magic Fatigue（魔法疲劳）</a><span class="mod-guide">解释魔法疲劳机制：同一玩家阶段内多次战斗会逐步削弱法系效果（治疗、法师、神谕者等），在新阶段开始时重置；给出受／不受影响对象清单与三段式疲劳公式，并提醒荒谬难度下法系打 2–3 场后近乎失效，依赖治疗坦的队伍每阶段不能连坦太多场。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#ai" class="mod-link" title="针对 Legend 更新后的高难度敌方 AI：整章固定行动顺序，远程小队通常先动；把 AI 分为 Aggressive（激进）、Passive（被动）、另有按队长远近决定行为的类型，并说明被动组会因任一成员进入射程而全组转攻，适合想预判敌人">四、敌方 AI 行为</a><span class="mod-guide">针对 Legend 更新后的高难度敌方 AI：整章固定行动顺序，远程小队通常先动；把 AI 分为 Aggressive（激进）、Passive（被动）、另有按队长远近决定行为的类型，并说明被动组会因任一成员进入射程而全组转攻，适合想预判敌人走位的玩家。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#_6" class="mod-link" title="梳理五种移动类型（重装／轻步兵／重／轻骑兵／飞行）的机动、地形与伏击差异，指出游戏提示常省略 heavy、步兵泛指轻重步兵；并解释伏击的触发条件，是编队与走位的基础参考。">五、小队 移动类型与 伏击</a><span class="mod-guide">梳理五种移动类型（重装／轻步兵／重／轻骑兵／飞行）的机动、地形与伏击差异，指出游戏提示常省略 heavy、步兵泛指轻重步兵；并解释伏击的触发条件，是编队与走位的基础参考。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#_7" class="mod-link" title="以 Version 1.10.23 LEGENDS 为口径的总伤害公式：属性高于 SoftCap 时按边际递减缩放后参与计算（给出 ScaledValue 公式），并逐项铺开攻击力／防御力／DamageMod／DefenseMod 等构成；">六、伤害公式总览</a><span class="mod-guide">以 Version 1.10.23 LEGENDS 为口径的总伤害公式：属性高于 SoftCap 时按边际递减缩放后参与计算（给出 ScaledValue 公式），并逐项铺开攻击力／防御力／DamageMod／DefenseMod 等构成；注明作者声明数据挖掘与实测为主、斜体为未充分验证项，适合想深挖数值的玩家。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#block" class="mod-link" title="讲 Block（阻挡）系统如何决定谁能被选中：同列或相邻列有友军即完全阻挡、近战与非穿透单位无法选中，差一格则目标值减半；并列出气度不凡／深藏不露及重装、戴安娜等目标值修正，是调整站位诱敌或护脆皮的实用依据。">七、Block（阻挡）与目标选择</a><span class="mod-guide">讲 Block（阻挡）系统如何决定谁能被选中：同列或相邻列有友军即完全阻挡、近战与非穿透单位无法选中，差一格则目标值减半；并列出气度不凡／深藏不露及重装、戴安娜等目标值修正，是调整站位诱敌或护脆皮的实用依据。</span></li>
+<li class="mod-item"><span class="mod-no">08</span><a href="#_8" class="mod-link" title="讲掩体与隐藏的 Row Mod：单位前方同排有友军只受 80% 伤害、最多叠到 64%（仅对近战有效）；掩体分直线射击专用与通用两类， Heavy／轻掩体分别减伤 35%／25%，法师攻击完全无视掩体，兵行诡道可绕过；适合规划阵型减伤。">八、掩体</a><span class="mod-guide">讲掩体与隐藏的 Row Mod：单位前方同排有友军只受 80% 伤害、最多叠到 64%（仅对近战有效）；掩体分直线射击专用与通用两类， Heavy／轻掩体分别减伤 35%／25%，法师攻击完全无视掩体，兵行诡道可绕过；适合规划阵型减伤。</span></li>
+<li class="mod-item"><span class="mod-no">09</span><a href="#the-battle-grid" class="mod-link" title="说明战场网格是 3 行×5 列、敌方坐标镜像，AOE 以 3×5 显示红字为目标格；重点提示当前版本 AOE 溅射可能未按预期工作——单位视为 2 列宽且可 targeting 空格，导致很多场景不对称，引用指南 ID3576142012 ">九、战场网格（The Battle Grid）</a><span class="mod-guide">说明战场网格是 3 行×5 列、敌方坐标镜像，AOE 以 3×5 显示红字为目标格；重点提示当前版本 AOE 溅射可能未按预期工作——单位视为 2 列宽且可 targeting 空格，导致很多场景不对称，引用指南 ID3576142012 第 5 节。</span></li>
+<li class="mod-item"><span class="mod-no">10</span><a href="#damagescale-aoe" class="mod-link" title="逐单位／攻击列出 DamageScale 与 AoE 倍率：弓术箭雨每箭 33%、钢弩直线最高 160%、ZwaiHandler／战猫打整行、巨兽同行 75%、冠军剑士二连 80%、百夫长含背后 70% 等，是计算齐射集火伤害的速查表。">十、DamageScale 与 AoE 倍率表</a><span class="mod-guide">逐单位／攻击列出 DamageScale 与 AoE 倍率：弓术箭雨每箭 33%、钢弩直线最高 160%、ZwaiHandler／战猫打整行、巨兽同行 75%、冠军剑士二连 80%、百夫长含背后 70% 等，是计算齐射集火伤害的速查表。</span></li>
+<li class="mod-item"><span class="mod-no">11</span><a href="#element-rates" class="mod-link" title="列出各职业的元素抗性（仅非 100% 项）：骑兵／骑士箭抗 75%、非 T4 法系对四系 -25%、龙对所有龙 200% 且红银蓝龙各自带元素减伤、Risen／卫兵／圣骑士的特殊抗性，并标注女武神、侍僧、暗／亡灵法师等例外，来源 ID357">十一、元素抗性（Element Rates）</a><span class="mod-guide">列出各职业的元素抗性（仅非 100% 项）：骑兵／骑士箭抗 75%、非 T4 法系对四系 -25%、龙对所有龙 200% 且红银蓝龙各自带元素减伤、Risen／卫兵／圣骑士的特殊抗性，并标注女武神、侍僧、暗／亡灵法师等例外，来源 ID3576142012 第 7 节。</span></li>
+<li class="mod-item"><span class="mod-no">12</span><a href="#_9" class="mod-link" title="讲命中与暴击的完整判定：三骰（0~100／115／130）低于 HitThreshold 记成功，按成功数分为 Strong／Normal／Glancing／Miss，给出 HitThreshold 公式与下限 2；并列出致命一击、必中等特">十二、命中、命中类型与暴击</a><span class="mod-guide">讲命中与暴击的完整判定：三骰（0~100／115／130）低于 HitThreshold 记成功，按成功数分为 Strong／Normal／Glancing／Miss，给出 HitThreshold 公式与下限 2；并列出致命一击、必中等特质与暴击倍率，适合理解输出稳定性。</span></li>
+<li class="mod-item"><span class="mod-no">13</span><a href="#_10" class="mod-link" title="汇总影响伤害的特质、道具与杂项机制：Phalanx 借友军武器／护甲加成、振奋军心／高筑街垒的整列攻防增益（在减防前生效， hence 比看上去强）、百发百中与斩钢之剑对法师也有效、伤害修正的加总与相乘顺序，是进阶配装与特质搭配的依据。">十三、特质、道具与杂项机制</a><span class="mod-guide">汇总影响伤害的特质、道具与杂项机制：Phalanx 借友军武器／护甲加成、振奋军心／高筑街垒的整列攻防增益（在减防前生效， hence 比看上去强）、百发百中与斩钢之剑对法师也有效、伤害修正的加总与相乘顺序，是进阶配装与特质搭配的依据。</span></li>
+<li class="mod-item"><span class="mod-no">14</span><a href="#_11" class="mod-link" title="列出可从职业推知的隐藏特质与特性：圣骑士对法系／盗贼等 +50%、战猫／巨兽的夜间 stalk 与巨兽专属 antigun、散兵／游侠的 antigun，以及游侠弩的 Snipe（更集中打脆皮），来源 ID3576142012 第 10 节">十四、隐藏特质与特性</a><span class="mod-guide">列出可从职业推知的隐藏特质与特性：圣骑士对法系／盗贼等 +50%、战猫／巨兽的夜间 stalk 与巨兽专属 antigun、散兵／游侠的 antigun，以及游侠弩的 Snipe（更集中打脆皮），来源 ID3576142012 第 10 节。</span></li>
+<li class="mod-item"><span class="mod-no">15</span><a href="#attackmod" class="mod-link" title="给出时间与天气按亲和提供的 AttackMod 表：地系在黎明／黄昏或多云获 +5%、水系雨雪风暴 +5%～10%、雷系风暴 +15% 但阴天 -5%、火系晴天 +5% 但雪天 -5% 等；多个增益先加总再入攻击修正，适合追求极限伤害时对照">十五、时间、天气与亲和度（AttackMod）</a><span class="mod-guide">给出时间与天气按亲和提供的 AttackMod 表：地系在黎明／黄昏或多云获 +5%、水系雨雪风暴 +5%～10%、雷系风暴 +15% 但阴天 -5%、火系晴天 +5% 但雪天 -5% 等；多个增益先加总再入攻击修正，适合追求极限伤害时对照。</span></li>
+<li class="mod-item"><span class="mod-no">16</span><a href="#_12" class="mod-link" title="汇总地形效果与叠加：高地远程 ±10%、森林／堡垒／营地／墙各自减伤与闪避、沼泽 -25% 闪避，强调墙同时算高地故可叠到减伤 32.5%；并说明游击／打了就跑／就地驻扎等特质与地形的互动，是选场地布阵的参考。">十六、地形</a><span class="mod-guide">汇总地形效果与叠加：高地远程 ±10%、森林／堡垒／营地／墙各自减伤与闪避、沼泽 -25% 闪避，强调墙同时算高地故可叠到减伤 32.5%；并说明游击／打了就跑／就地驻扎等特质与地形的互动，是选场地布阵的参考。</span></li>
+<li class="mod-item"><span class="mod-no">17</span><a href="#_13" class="mod-link" title="解释士气（-20~120、基准 50，七档状态）与投降机制：击杀队长或打崩士气可逼整队投降，投降给金币与科技点；结合高士气带来的攻击加成与溃逃阈值，说明为何投降是刷资源与快速减员的核心手段。">十七、士气与投降</a><span class="mod-guide">解释士气（-20~120、基准 50，七档状态）与投降机制：击杀队长或打崩士气可逼整队投降，投降给金币与科技点；结合高士气带来的攻击加成与溃逃阈值，说明为何投降是刷资源与快速减员的核心手段。</span></li>
+<li class="mod-item"><span class="mod-no">18</span><a href="#_14" class="mod-link" title="用两个完整算例演示伤害公式如何套用：骑士打骠骑兵（含 Phalanx 借甲、超 SoftCap 缩放、战术与掩体修正，结果约 54.35）与暗法师打女武神，逐步骤展示 BaseAttack／BaseDefense／修正的代入过程，适合对照公">十八、伤害公式数值算例</a><span class="mod-guide">用两个完整算例演示伤害公式如何套用：骑士打骠骑兵（含 Phalanx 借甲、超 SoftCap 缩放、战术与掩体修正，结果约 54.35）与暗法师打女武神，逐步骤展示 BaseAttack／BaseDefense／修正的代入过程，适合对照公式自查。</span></li>
+<li class="mod-item"><span class="mod-no">19</span><a href="#stat-growth" class="mod-link" title="讲属性成长由亲和度决定（并随天气影响命中／暴击），给出亲和→角色定位映射表：地＝坦、水＝治疗、雷＝盗贼／刺客、火＝物理输出、暗＝施法者／龙、轻＝队长；说明亲和可在后期更改，是规划单位定位与转职的依据。">十九、属性成长（Stat Growth）</a><span class="mod-guide">讲属性成长由亲和度决定（并随天气影响命中／暴击），给出亲和→角色定位映射表：地＝坦、水＝治疗、雷＝盗贼／刺客、火＝物理输出、暗＝施法者／龙、轻＝队长；说明亲和可在后期更改，是规划单位定位与转职的依据。</span></li>
+<li class="mod-item"><span class="mod-no">20</span><a href="#character" class="mod-link" title="对照指南原文梳理角色特质：领袖特性影响全队且不能传授、只在市场／集市新单位上出现，Unit 特性可教给任意单位（如顺手牵羊是主要金币来源），并说明雇佣兵特质随时间降为忠心耿耿、领袖特性不占可学空间，来源 ID2852514526 第 2 节">二十、角色特质（Character 特性）</a><span class="mod-guide">对照指南原文梳理角色特质：领袖特性影响全队且不能传授、只在市场／集市新单位上出现，Unit 特性可教给任意单位（如顺手牵羊是主要金币来源），并说明雇佣兵特质随时间降为忠心耿耿、领袖特性不占可学空间，来源 ID2852514526 第 2 节。</span></li>
+<li class="mod-item"><span class="mod-no">21</span><a href="#_15" class="mod-link" title="讲小队编制的两层要点：分类按多数单位决定（步兵／轻步兵／骑兵／轻骑兵／飞行，附伏击／Charge 等加成），飞行队近乎破坏游戏但混入骑兵或炮即落地；站位方面 guardian 特质可掩护身后单位，一格可同时护两人，适合优化阵型。">二十一、队伍编制（小队 编队）</a><span class="mod-guide">讲小队编制的两层要点：分类按多数单位决定（步兵／轻步兵／骑兵／轻骑兵／飞行，附伏击／Charge 等加成），飞行队近乎破坏游戏但混入骑兵或炮即落地；站位方面 guardian 特质可掩护身后单位，一格可同时护两人，适合优化阵型。</span></li>
+<li class="mod-item"><span class="mod-no">22</span><a href="#_16" class="mod-link" title="讲三色龙的机制与进化：唯一飞行单位、每队只能放 3 条（每条占约 2 格），转职即进化且伤害由力量＋魔法组合决定；列出红龙（魔法／高伤）、银龙（力量／坦）、蓝龙（灵巧／均衡）的主属性与最佳亲和，适合想养龙的玩家。">二十二、龙与三色进化</a><span class="mod-guide">讲三色龙的机制与进化：唯一飞行单位、每队只能放 3 条（每条占约 2 格），转职即进化且伤害由力量＋魔法组合决定；列出红龙（魔法／高伤）、银龙（力量／坦）、蓝龙（灵巧／均衡）的主属性与最佳亲和，适合想养龙的玩家。</span></li>
+</ul></details>
+<details class="toc-chapter" open>
+<summary><a href="#_17" class="chap-link">第二章 军队编成与小队原型</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#_19" class="mod-link" title="讲小队编制的基础机制：第 1 章后可从管理军队新建小队，核心是找高统率单位当队长（队长统率＝小队最大容量）；容量消耗为基础 10、第 6 人起每人 +2，并受忠诚、队长特质、难度与单位类型影响；随后展开忠诚度的波动与影响，来源 ID3047">一、小队编制基础机制</a><span class="mod-guide">讲小队编制的基础机制：第 1 章后可从管理军队新建小队，核心是找高统率单位当队长（队长统率＝小队最大容量）；容量消耗为基础 10、第 6 人起每人 +2，并受忠诚、队长特质、难度与单位类型影响；随后展开忠诚度的波动与影响，来源 ID3047633233。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#_20" class="mod-link" title="给出九类小队原型（主力攻坚／近战杀手／龙／火炮／治疗者等）的总览表，按资源、所需统率、属性投入与移动类型逐项对比；结论是先定角色再构建，并点明各类队的资源与统率门槛差异，作为后续详细配置的索引。">二、九类小队原型总览</a><span class="mod-guide">给出九类小队原型（主力攻坚／近战杀手／龙／火炮／治疗者等）的总览表，按资源、所需统率、属性投入与移动类型逐项对比；结论是先定角色再构建，并点明各类队的资源与统率门槛差异，作为后续详细配置的索引。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#_21" class="mod-link" title="逐类给出九类小队原型的详细配置：主力攻坚用前排三重装＋剑圣＋后排坦、神器与角色选择，并覆盖其余原型的前中后排、神器、特质与操作要点；强调主力攻坚应冲在阵列最前引敌反击、靠渴血击杀续航，是编队的核心实操章节。">三、九类小队原型详细配置</a><span class="mod-guide">逐类给出九类小队原型的详细配置：主力攻坚用前排三重装＋剑圣＋后排坦、神器与角色选择，并覆盖其余原型的前中后排、神器、特质与操作要点；强调主力攻坚应冲在阵列最前引敌反击、靠渴血击杀续航，是编队的核心实操章节。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#_22" class="mod-link" title="按剧情角色逐个推荐其适合的小队定位：戴安娜适合主力攻坚／近战杀手、MC 适合治疗与副坦、碧翠丝是天然小队杀手、斯泰凡唯一能防守背刺等；给出理由与适配特质，帮助把剧情角色放进最合适的队。">四、剧情角色推荐</a><span class="mod-guide">按剧情角色逐个推荐其适合的小队定位：戴安娜适合主力攻坚／近战杀手、MC 适合治疗与副坦、碧翠丝是天然小队杀手、斯泰凡唯一能防守背刺等；给出理由与适配特质，帮助把剧情角色放进最合适的队。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#id3166407626" class="mod-link" title="从全局讲军队编成：目标是配够进攻队（单阶段消灭进入射程的多数敌队）与防御队（每战线一支可复用、或用诱饵触发被动敌群），治疗队按主力攻坚与龙队数量配套；并比较近战以骑兵还是步兵为主——步兵清图快、骑兵推进强敌更安全，来源 ID31664076">五、军队编成总论（ID3166407626）</a><span class="mod-guide">从全局讲军队编成：目标是配够进攻队（单阶段消灭进入射程的多数敌队）与防御队（每战线一支可复用、或用诱饵触发被动敌群），治疗队按主力攻坚与龙队数量配套；并比较近战以骑兵还是步兵为主——步兵清图快、骑兵推进强敌更安全，来源 ID3166407626。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#id2924897665" class="mod-link" title="给出兵种优先级与军队建设路线：龙＞炮＞重骑兵＞其余 Nephilim＞重步兵＞轻步兵／轻骑兵，并说明适用 Patch 1.03、军阀难度且不适用于永久死亡；随后展开龙、炮队等高分兵种的购置、亲和与配队细节，来源 ID2924897665。">六、兵种优先级与军队建设（ID2924897665）</a><span class="mod-guide">给出兵种优先级与军队建设路线：龙＞炮＞重骑兵＞其余 Nephilim＞重步兵＞轻步兵／轻骑兵，并说明适用 Patch 1.03、军阀难度且不适用于永久死亡；随后展开龙、炮队等高分兵种的购置、亲和与配队细节，来源 ID2924897665。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#cp-id2924897665" class="mod-link" title="承接上一篇给出科技、神器、特质、亲和、CP 与佣兵的规划：科技先工艺与技术再战争学院、战术指挥不超 5 点直到解锁膛线火炮与龙的传人；传说神器按时间制御器＞翠玉神像等优先级列出，是中期资源分配与长线养成的指南，来源 ID2924897665">七、科技、神器、特质、亲和、CP 与佣兵（ID2924897665）</a><span class="mod-guide">承接上一篇给出科技、神器、特质、亲和、CP 与佣兵的规划：科技先工艺与技术再战争学院、战术指挥不超 5 点直到解锁膛线火炮与龙的传人；传说神器按时间制御器＞翠玉神像等优先级列出，是中期资源分配与长线养成的指南，来源 ID2924897665。</span></li>
+<li class="mod-item"><span class="mod-no">08</span><a href="#id2852514526" class="mod-link" title="聚焦龙的定位与威胁值：重述龙作为唯一飞行单位、每队放 3 条及红银蓝三色进化表，并从威胁值角度说明其在敌 AI 目标选择中的地位；帮助理解为何龙队能吸引火力又难以被近战触及，来源 ID2852514526。">八、龙的定位与威胁值（ID2852514526）</a><span class="mod-guide">聚焦龙的定位与威胁值：重述龙作为唯一飞行单位、每队放 3 条及红银蓝三色进化表，并从威胁值角度说明其在敌 AI 目标选择中的地位；帮助理解为何龙队能吸引火力又难以被近战触及，来源 ID2852514526。</span></li>
+<li class="mod-item"><span class="mod-no">09</span><a href="#id2841924953" class="mod-link" title="给出一份第 12 章的 15 队成军模板（4 坦克、1 盗窃、2 骑兵、1 炮、1 龙、4 骑弓、2 医疗），逐队标注负责角色；可作为高难度终盘编队的参照范例，来源 ID2841924953。">九、队伍模板（ID2841924953）</a><span class="mod-guide">给出一份第 12 章的 15 队成军模板（4 坦克、1 盗窃、2 骑兵、1 炮、1 龙、4 骑弓、2 医疗），逐队标注负责角色；可作为高难度终盘编队的参照范例，来源 ID2841924953。</span></li>
+<li class="mod-item"><span class="mod-no">10</span><a href="#_23" class="mod-link" title="列出本章采用的五份指南（ID3166407626、2924897665、2852514526、3047633233、2841924953）及其原标题、作者与采用内容，作为第二章各结论的来源索引与交叉核对入口。">十、本章来源指南一览</a><span class="mod-guide">列出本章采用的五份指南（ID3166407626、2924897665、2852514526、3047633233、2841924953）及其原标题、作者与采用内容，作为第二章各结论的来源索引与交叉核对入口。</span></li>
+</ul></details>
+<details class="toc-chapter">
+<summary><a href="#_24" class="chap-link">第三章 转职系统与独特佣兵</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#full-promotion-tree" class="mod-link" title="整理指南 ID2819992940 的完整职业晋升树：先列元数据（作者 Klokinator、4 星、23615 访客等），再以图转录逐级列出各职业的转职去向、属性／材料门槛与 xN 倍率；是查「某职业能转成什么、需要什么」的权威速查，数据">第一节 · Full 职业 Promotion Tree（完整职业晋升树）</a><span class="mod-guide">整理指南 ID2819992940 的完整职业晋升树：先列元数据（作者 Klokinator、4 星、23615 访客等），再以图转录逐级列出各职业的转职去向、属性／材料门槛与 xN 倍率；是查「某职业能转成什么、需要什么」的权威速查，数据按原图逐项抄录未作臆断。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#full-unit-tree" class="mod-link" title="整理指南 ID2915841965 的完整单位树：给出元数据（作者 em_dash、4 星等），并按图转录单位间的晋升／分支关系，与上一篇职业树相互印证；适合核对具体单位的完整晋升链与分支条件。">第二节 · Full Unit Tree（完整单位树）</a><span class="mod-guide">整理指南 ID2915841965 的完整单位树：给出元数据（作者 em_dash、4 星等），并按图转录单位间的晋升／分支关系，与上一篇职业树相互印证；适合核对具体单位的完整晋升链与分支条件。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#all-unique-mercenaries" class="mod-link" title="整理指南 ID2870421162 的全部独特佣兵：给出元数据（作者 Horthas、4 星、18933 访客等），并按图转录每名独特佣兵的可用职业、起始特质与特性；是收集党的点名册，也包括评论区对 DLC 增补的说明。">第三节 · All Unique Mercenaries（全部独特佣兵）</a><span class="mod-guide">整理指南 ID2870421162 的全部独特佣兵：给出元数据（作者 Horthas、4 星、18933 访客等），并按图转录每名独特佣兵的可用职业、起始特质与特性；是收集党的点名册，也包括评论区对 DLC 增补的说明。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#_25" class="mod-link" title="对前三篇职业／单位／佣兵指南做交叉说明与可信度提示：三篇一致之处（勇士→士兵系、龙链等）与两处玩家指正（枪炮系并非仅男性、部分特性为作者后加），并说明图表数字含义未定义故不臆断；提醒指南 1、2 未覆盖 1.10 与 DLC。">交叉说明与可信度提示</a><span class="mod-guide">对前三篇职业／单位／佣兵指南做交叉说明与可信度提示：三篇一致之处（勇士→士兵系、龙链等）与两处玩家指正（枪炮系并非仅男性、部分特性为作者后加），并说明图表数字含义未定义故不臆断；提醒指南 1、2 未覆盖 1.10 与 DLC。</span></li>
+</ul></details>
+<details class="toc-chapter">
+<summary><a href="#_26" class="chap-link">第四章 科技树装备与神器</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#_28" class="mod-link" title="以一名三阶战弓手（冈特）的面板为例拆解属性页：血量、等级、XP／CP（经验与职业经验的区别与获取方式）、元素亲和修正表等；帮助新手读懂角色界面，并理解亲和改变会直接影响属性与天气强度。">一、属性基础详解</a><span class="mod-guide">以一名三阶战弓手（冈特）的面板为例拆解属性页：血量、等级、XP／CP（经验与职业经验的区别与获取方式）、元素亲和修正表等；帮助新手读懂角色界面，并理解亲和改变会直接影响属性与天气强度。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#_29" class="mod-link" title="分类列出单位特质：普通特质（奥法之盾／之力／之速、刺客之心等，部分卷轴学习、部分自带）及效果，作为配装与技能选择的速查表；与职业／装备章节配合决定特质搭配。">二、特性 特质</a><span class="mod-guide">分类列出单位特质：普通特质（奥法之盾／之力／之速、刺客之心等，部分卷轴学习、部分自带）及效果，作为配装与技能选择的速查表；与职业／装备章节配合决定特质搭配。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#148" class="mod-link" title="按原图编号列出 1–48 号兵种及转职路线：每笔标注阶级、阵营、移动类型、资源与战斗方式、转职消耗的属性阈值与物资；强调缺失编号原笔记未出现故不补全，是查「某兵种怎么转、要什么资源」的核心图鉴，来源 ID 2900845198 第 9 节。">三、兵种及转职路线（1–48 号）</a><span class="mod-guide">按原图编号列出 1–48 号兵种及转职路线：每笔标注阶级、阵营、移动类型、资源与战斗方式、转职消耗的属性阈值与物资；强调缺失编号原笔记未出现故不补全，是查「某兵种怎么转、要什么资源」的核心图鉴，来源 ID 2900845198 第 9 节。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#_30" class="mod-link" title="列出消耗道具：重命名／XP／CP 卷轴的用途与限制，三阶／四阶满职业经验后的进阶证明，以及提升力量／魔力／敏捷／血量／统率的道具；关键结论是统率提升在 50 以下 +3、50～60 +2、60 以上 +1 且 70 后失效，但非光单位提到 ">四、消耗道具</a><span class="mod-guide">列出消耗道具：重命名／XP／CP 卷轴的用途与限制，三阶／四阶满职业经验后的进阶证明，以及提升力量／魔力／敏捷／血量／统率的道具；关键结论是统率提升在 50 以下 +3、50～60 +2、60 以上 +1 且 70 后失效，但非光单位提到 70 后转光可继续提升。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#_31" class="mod-link" title="完整列出四阶科技树：按一阶（一张科技券）到四阶逐级罗列科技名称与效果，如学徒训练、导师制度（队员按队长统率获至少 10% 增益）、商人特使等；是规划科技研究顺序与解锁条件的全表。">五、科技树（四阶全表）</a><span class="mod-guide">完整列出四阶科技树：按一阶（一张科技券）到四阶逐级罗列科技名称与效果，如学徒训练、导师制度（队员按队长统率获至少 10% 增益）、商人特使等；是规划科技研究顺序与解锁条件的全表。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#_32" class="mod-link" title="按白／绿／蓝／紫／橙稀有度完整复现装备属性表：列为装备名称、血上限、防御、容量、力量、魔力、敏捷与特殊效果，含时间制御器、索哈的血之碎片、圣特蕾莎的冠冕等；是查装备数值与特效的权威表，原文表格未作删改。">六、装备图鉴（白／绿／蓝／紫／橙）</a><span class="mod-guide">按白／绿／蓝／紫／橙稀有度完整复现装备属性表：列为装备名称、血上限、防御、容量、力量、魔力、敏捷与特殊效果，含时间制御器、索哈的血之碎片、圣特蕾莎的冠冕等；是查装备数值与特效的权威表，原文表格未作删改。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#artifact-catalog" class="mod-link" title="整理神器目录（Artifact Catalog，Patch 1.10.04＋DLC，来源 ID 2829088965）：说明神器按稀有度分节、按字母序排列、每件每队只能装一次；并注明原指南以截图为主、具体数值未逐一转录，详细属性以本章第六节">七、神器目录（Artifact Catalog）</a><span class="mod-guide">整理神器目录（Artifact Catalog，Patch 1.10.04＋DLC，来源 ID 2829088965）：说明神器按稀有度分节、按字母序排列、每件每队只能装一次；并注明原指南以截图为主、具体数值未逐一转录，详细属性以本章第六节装备表为准，不作推测。</span></li>
+</ul></details>
+<details class="toc-chapter">
+<summary><a href="#_33" class="chap-link">第五章 成就与角色羁绊</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#_35" class="mod-link" title="列出本章覆盖的六份指南（ID2820138833、2825361167、2826978104、2890011748、2883713836、2938894219）的原标题、作者、评分／时间与版本说明；其中第 12 章相关指南明确标注了难度口径">本章覆盖的指南</a><span class="mod-guide">列出本章覆盖的六份指南（ID2820138833、2825361167、2826978104、2890011748、2883713836、2938894219）的原标题、作者、评分／时间与版本说明；其中第 12 章相关指南明确标注了难度口径与「补丁已封堵刷级」的时效性，作为第五章的来源索引。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#100-id-2820138833" class="mod-link" title="整理指南 ID2820138833 的 100% 成就总览：19 项成就全为离线、成就难度中等，并给出可 Ctrl+F 检索的成就列表与说明；作者称仍在持续更新，适合成就党按表逐项核对进度。">一、100% 成就总览与全部成就（ID 2820138833）</a><span class="mod-guide">整理指南 ID2820138833 的 100% 成就总览：19 项成就全为离线、成就难度中等，并给出可 Ctrl+F 检索的成就列表与说明；作者称仍在持续更新，适合成就党按表逐项核对进度。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#id-2825361167" class="mod-link" title="整理指南 ID2825361167 的全角色羁绊：约 15 名关键角色、章节间在基地 Support 区通过「对话」建立关系，先朋友后深层；重要结论是周目内羁绊一旦形成不可解除且会关闭其他选项，含剧透警告，⭐ 标正统配对但不强制，建议通关一">二、全角色关系／羁绊指南（ID 2825361167）</a><span class="mod-guide">整理指南 ID2825361167 的全角色羁绊：约 15 名关键角色、章节间在基地 Support 区通过「对话」建立关系，先朋友后深层；重要结论是周目内羁绊一旦形成不可解除且会关闭其他选项，含剧透警告，⭐ 标正统配对但不强制，建议通关一次后再看。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#12-id-2826978104" class="mod-link" title="给出指南 ID2826978104 的军阀难度第 12 章两阶段打法：目标是在第 12 章全灭敌队拿成就（而非仅杀 Teremor 拿 S），必须自第 1 章起准备；第一阶段靠谨慎站位欺骗 AI 寻路、封右侧防敌军占基地，适合追求可靠、不依">三、击败第 12 章并获得成就——军阀 难度两阶段打法（ID 2826978104）</a><span class="mod-guide">给出指南 ID2826978104 的军阀难度第 12 章两阶段打法：目标是在第 12 章全灭敌队拿成就（而非仅杀 Teremor 拿 S），必须自第 1 章起准备；第一阶段靠谨慎站位欺骗 AI 寻路、封右侧防敌军占基地，适合追求可靠、不依赖 RNG 的成就党。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#how-id-2890011748" class="mod-link" title="介绍指南 ID2890011748 的单兵诱饵邪道：利用 AI 优先攻击战力最低军队的设定，组一支仅 1 兵的小队、配永存药水与减伤神器／特性专门吃炮击，把炮车从等式中移除，让脆皮主力免遭轰击；但怕法师与枪兵突击，须靠队友守护侧翼与地形挡近">四、在 &quot;...How?&quot; 成就中应对炮车——单兵诱饵邪道（ID 2890011748）</a><span class="mod-guide">介绍指南 ID2890011748 的单兵诱饵邪道：利用 AI 优先攻击战力最低军队的设定，组一支仅 1 兵的小队、配永存药水与减伤神器／特性专门吃炮击，把炮车从等式中移除，让脆皮主力免遭轰击；但怕法师与枪兵突击，须靠队友守护侧翼与地形挡近战。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#12-how-id-2883713836" class="mod-link" title="给出指南 ID2883713836 的简单难度第 12 章打法：核心是每支小队至少 1 名火法（冰／雷需 2 名）一回合抹掉整排枪兵／攻城炮，配哨兵反火器反骑兵，龙可作替代但需同队 2–3 条；并给出右侧部署等具体执行细节。">五、第 12 章 &quot;...How?&quot; 简单难度打法（ID 2883713836）</a><span class="mod-guide">给出指南 ID2883713836 的简单难度第 12 章打法：核心是每支小队至少 1 名火法（冰／雷需 2 名）一回合抹掉整排枪兵／攻城炮，配哨兵反火器反骑兵，龙可作替代但需同队 2–3 条；并给出右侧部署等具体执行细节。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#12-howid-2938894219" class="mod-link" title="给出指南 ID2938894219 的上尉难度不重开打法：靠青铜竞技场刷级到约 20 级、低威胁高防坦队搭配更高威胁治疗与进攻队，利用 AI 打最低威胁队的原理拿「How?」成就；文末明确提示后续补丁已封堵刷级漏洞、本指南不再适用。">六、上尉难度不重新开始打第 12 章 &quot;How?&quot;（ID 2938894219）</a><span class="mod-guide">给出指南 ID2938894219 的上尉难度不重开打法：靠青铜竞技场刷级到约 20 级、低威胁高防坦队搭配更高威胁治疗与进攻队，利用 AI 打最低威胁队的原理拿「How?」成就；文末明确提示后续补丁已封堵刷级漏洞、本指南不再适用。</span></li>
+<li class="mod-item"><span class="mod-no">08</span><a href="#id-3219175546" class="mod-link" title="补充简体中文指南 ID3219175546 的全成就攻略：覆盖 16 项成就（含第 11／12／15／27 关难点），难度与章节编号口径与英文指南不同（如 Caretaker 记为第 15 章、共 4 个难度），按原文并列保留供交叉判断；并">七、补充：全成就攻略（简体中文，ID 3219175546）</a><span class="mod-guide">补充简体中文指南 ID3219175546 的全成就攻略：覆盖 16 项成就（含第 11／12／15／27 关难点），难度与章节编号口径与英文指南不同（如 Caretaker 记为第 15 章、共 4 个难度），按原文并列保留供交叉判断；并给出序章基础与成就达成表。</span></li>
+<li class="mod-item"><span class="mod-no">09</span><a href="#12-how" class="mod-link" title="把六份第 12 章「How?」成就指南横向对照：按难度、核心思路、关键手段逐行列出 yahiko 两阶段、Xyranius 单兵诱饵、LDV 火法激进、AAA Owl 竞技场刷级（已失效）、奏者剧情杀等方案；结尾重申不同口径并列保留、图片小">八、第 12 章 &quot;...How?&quot; 打法横向对照小结</a><span class="mod-guide">把六份第 12 章「How?」成就指南横向对照：按难度、核心思路、关键手段逐行列出 yahiko 两阶段、Xyranius 单兵诱饵、LDV 火法激进、AAA Owl 竞技场刷级（已失效）、奏者剧情杀等方案；结尾重申不同口径并列保留、图片小节未臆造，适合按自身难度挑选打法。</span></li>
+</ul></details>
+<details class="toc-chapter">
+<summary><a href="#_36" class="chap-link">第六章 战役流程与高难度打法</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#_37" class="mod-link" title="本章标题以三级标题形式重复出现，正文仅有一句忠实整理自指定指南、逐节标注来源 ID 的声明；它标志第六章「战役流程与高难度打法」的开始而非一个知识模块，读者可直接从下方目录进入各实质小节。">第六章 战役流程与高难度打法</a><span class="mod-guide">本章标题以三级标题形式重复出现，正文仅有一句忠实整理自指定指南、逐节标注来源 ID 的声明；它标志第六章「战役流程与高难度打法」的开始而非一个知识模块，读者可直接从下方目录进入各实质小节。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#_38" class="mod-link" title="第六章章内目录，以编号列表给出六节锚点链接：各章节详情、有集市章节、第 12 章最高难度打法、荒谬难度全 S 指南、荒谬难度军队配置、最终 Boss 第 30 关；仅是章内重复导航、无实质攻略内容，读者可用它快速跳转到目标小节。">目录</a><span class="mod-guide">第六章章内目录，以编号列表给出六节锚点链接：各章节详情、有集市章节、第 12 章最高难度打法、荒谬难度全 S 指南、荒谬难度军队配置、最终 Boss 第 30 关；仅是章内重复导航、无实质攻略内容，读者可用它快速跳转到目标小节。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#30-5" class="mod-link" title="给出 30 章＋5 支线的全表：逐章列出场景、固定与总数部署、目标、持续回合、挑战、是否有集市及事件备注（来源 ID2883231728）；「固定」为剧情锁定出战角色，是查任一章关卡参数与剧情节点的完整索引。">一、各章节详情（30 章 + 5 支线全表）</a><span class="mod-guide">给出 30 章＋5 支线的全表：逐章列出场景、固定与总数部署、目标、持续回合、挑战、是否有集市及事件备注（来源 ID2883231728）；「固定」为剧情锁定出战角色，是查任一章关卡参数与剧情节点的完整索引。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#_39" class="mod-link" title="列出截至 2023-04-03 的全部有集市章节（来源 ID2957280382），逐章编号并附注特殊条件（如第 8 章需 3000 金币买拉斯库亚）；目的是帮玩家提前备足金币、按需购物，甚至实现「以 15 条龙通关」。">二、有集市的章节</a><span class="mod-guide">列出截至 2023-04-03 的全部有集市章节（来源 ID2957280382），逐章编号并附注特殊条件（如第 8 章需 3000 金币买拉斯库亚）；目的是帮玩家提前备足金币、按需购物，甚至实现「以 15 条龙通关」。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#12_2" class="mod-link" title="给出指南 ID2848545014 的第 12 章最高难度＋永久死亡无刷级打法：口号是不刷级、不用漏洞、不依赖 RNG、不降难度；准备期建议开新档、以重步兵／重骑兵／治疗者／大量法师为主并避免轻装与龙，必须抢学徒解锁与重甲加成等科技，适合硬">三、第 12 章最高难度＋永久死亡无刷级打法</a><span class="mod-guide">给出指南 ID2848545014 的第 12 章最高难度＋永久死亡无刷级打法：口号是不刷级、不用漏洞、不依赖 RNG、不降难度；准备期建议开新档、以重步兵／重骑兵／治疗者／大量法师为主并避免轻装与龙，必须抢学徒解锁与重甲加成等科技，适合硬核无取巧玩家。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#s-ldv" class="mod-link" title="整理指南 ID3629504594 的荒谬难度全 S 无取巧完整指南（LDV）：涵盖通用技巧（部署后撤退侦察、剧情单位降级白嫖资源、按 ~ 加速、先攻方优势极大）、军队配置、科技优化、购买指南与每关一招；强调不 SL、不重载集市，是零取巧冲">四、荒谬难度全 S 无取巧完整指南（LDV）</a><span class="mod-guide">整理指南 ID3629504594 的荒谬难度全 S 无取巧完整指南（LDV）：涵盖通用技巧（部署后撤退侦察、剧情单位降级白嫖资源、按 ~ 加速、先攻方优势极大）、军队配置、科技优化、购买指南与每关一招；强调不 SL、不重载集市，是零取巧冲全 S 的实操手册。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#_40" class="mod-link" title="给出指南 ID3033983967 的荒谬难度军队配置（基于 Patch 1.10.04 Legends、不适用于永久死亡）：最终军队由龙、火炮、辅助三部分组成；逐队给出配置要点，如碧翠丝队必备时间制御器、统率堆到 60 后用魔法薄荷堆魔法">五、荒谬难度军队配置指南</a><span class="mod-guide">给出指南 ID3033983967 的荒谬难度军队配置（基于 Patch 1.10.04 Legends、不适用于永久死亡）：最终军队由龙、火炮、辅助三部分组成；逐队给出配置要点，如碧翠丝队必备时间制御器、统率堆到 60 后用魔法薄荷堆魔法、每条龙占 15 容量等，是终盘编队的细表。</span></li>
+<li class="mod-item"><span class="mod-no">08</span><a href="#boss-30" class="mod-link" title="补充繁中指南 ID3484282539 的最终 Boss 第 30 关三阶段打法：说明魔王每 3 回合召唤 12 单位、会放范围黑魔法并周期性躲保护罩；给出兵力门槛（约 20000 战力 3–4 组、骑兵 8000–9000 约 3 组）与">六、最终 Boss 第 30 关打法（繁中版补充）</a><span class="mod-guide">补充繁中指南 ID3484282539 的最终 Boss 第 30 关三阶段打法：说明魔王每 3 回合召唤 12 单位、会放范围黑魔法并周期性躲保护罩；给出兵力门槛（约 20000 战力 3–4 组、骑兵 8000–9000 约 3 组）与 A／B／C 组分工、三阶段推进步骤，供打最终关参考。</span></li>
+<li class="mod-item"><span class="mod-no">09</span><a href="#_41" class="mod-link" title="列出第六章各小节对应的来源指南 ID 与原标题（章节详情 2883231728、集市 2957280382、第 12 章无刷级 2848545014、荒谬全 S 3629504594、军队配置 3033983967、最终 Boss 3484">章节来源汇总</a><span class="mod-guide">列出第六章各小节对应的来源指南 ID 与原标题（章节详情 2883231728、集市 2957280382、第 12 章无刷级 2848545014、荒谬全 S 3629504594、军队配置 3033983967、最终 Boss 3484282539），作为本章内容的来源索引与核对入口。</span></li>
+</ul></details>
+<details class="toc-chapter">
+<summary><a href="#mod" class="chap-link">第七章 刷级赚钱MOD与新手起步与来源附录</a></summary>
+<ul class="mod-list">
+<li class="mod-item"><span class="mod-no">01</span><a href="#_42" class="mod-link" title="讲青铜竞技场上篇的刷级原理与完整流程（来源 ID2845711232，明确早于 v1.02、注意时效性）：核心是留着敌方弓箭手不打、来回过回合站着挨吃经验与 CP；并区分新兵与带「雇佣兵」特性的真雇佣兵，给出 Step 0 部队准备，是理解">一、青铜竞技场刷级（上）：原理与完整流程</a><span class="mod-guide">讲青铜竞技场上篇的刷级原理与完整流程（来源 ID2845711232，明确早于 v1.02、注意时效性）：核心是留着敌方弓箭手不打、来回过回合站着挨吃经验与 CP；并区分新兵与带「雇佣兵」特性的真雇佣兵，给出 Step 0 部队准备，是理解刷级流的基础。</span></li>
+<li class="mod-item"><span class="mod-no">02</span><a href="#_43" class="mod-link" title="讲青铜竞技场下篇的自动化宏（来源 ID2849619555）：给出 Keystroke 宏（方向键与 C 键的逐步延迟循环）与按住 ~ 的 Speed 宏两张表，并说明用敌方两弓箭手＋骑弓手小队、清掉近战的队伍配置；用于把上篇的挨打刷级流程">二、青铜竞技场刷级（下）：自动化宏</a><span class="mod-guide">讲青铜竞技场下篇的自动化宏（来源 ID2849619555）：给出 Keystroke 宏（方向键与 C 键的逐步延迟循环）与按住 ~ 的 Speed 宏两张表，并说明用敌方两弓箭手＋骑弓手小队、清掉近战的队伍配置；用于把上篇的挨打刷级流程自动化。</span></li>
+<li class="mod-item"><span class="mod-no">03</span><a href="#_44" class="mod-link" title="汇总赚钱方法（来源 ID2841924953 等）：盗窃队应做先手、金币按 thievery 单位灵巧与伤害计算（配雷亲和最大化），并列出适合角色；另讲投降每次给 1 科技点与大量金币、溃逃 100% 成功，给出多队配合打士气的执行要点，是">三、赚钱方法汇总</a><span class="mod-guide">汇总赚钱方法（来源 ID2841924953 等）：盗窃队应做先手、金币按 thievery 单位灵巧与伤害计算（配雷亲和最大化），并列出适合角色；另讲投降每次给 1 科技点与大量金币、溃逃 100% 成功，给出多队配合打士气的执行要点，是积累金币与科技点的主要手段。</span></li>
+<li class="mod-item"><span class="mod-no">04</span><a href="#tips-and-tricks" class="mod-link" title="汇总实用机制速查（Tips and Tricks，来源 ID2841924953）：按住 ~ 的隐藏加速、单位容量消耗的精确公式（队长固定 10、队员随忠诚 8～12 与第 6 人起 +2 递增，9 人全忠诚无神器需 94 统率）；是日常游">四、实用机制速查（Tips and Tricks）</a><span class="mod-guide">汇总实用机制速查（Tips and Tricks，来源 ID2841924953）：按住 ~ 的隐藏加速、单位容量消耗的精确公式（队长固定 10、队员随忠诚 8～12 与第 6 人起 +2 递增，9 人全忠诚无神器需 94 统率）；是日常游玩与编队计算的便携参考。</span></li>
+<li class="mod-item"><span class="mod-no">05</span><a href="#23_4" class="mod-link" title="无剧透的新手起步指南（来源 ID2871845861，覆盖第 2–3 章）：第 2 章先点商人特使＋常备军、招 2 医疗＋1 勇士＋2 民兵并配装，第 3 章把勇士转骑士、民兵转侍僧；适合完全新手照着开局的逐步清单。">五、新手起步：第 2–3 章（无剧透）</a><span class="mod-guide">无剧透的新手起步指南（来源 ID2871845861，覆盖第 2–3 章）：第 2 章先点商人特使＋常备军、招 2 医疗＋1 勇士＋2 民兵并配装，第 3 章把勇士转骑士、民兵转侍僧；适合完全新手照着开局的逐步清单。</span></li>
+<li class="mod-item"><span class="mod-no">06</span><a href="#mod_2" class="mod-link" title="介绍无限竞技场代币 MOD（来源 ID2821693132）：用 Cheat Engine 的 RPG VX 自定义类型（值按 2x+1 存储）改代币，需先在商店留 1 个代币、存档读档刷出第 2 个；单次上限 20，且评论区多人反馈新版失">六、无限竞技场代币 MOD</a><span class="mod-guide">介绍无限竞技场代币 MOD（来源 ID2821693132）：用 Cheat Engine 的 RPG VX 自定义类型（值按 2x+1 存储）改代币，需先在商店留 1 个代币、存档读档刷出第 2 个；单次上限 20，且评论区多人反馈新版失效、开发者已封堵部分漏洞，务必注意风险与时效性。</span></li>
+<li class="mod-item"><span class="mod-no">07</span><a href="#34_2" class="mod-link" title="附录列出 34 份指南来源清单：逐条给出指南 ID、原标题、作者、语言与对应中文笔记文件，覆盖英／简中／繁中／俄／波兰语，是整篇攻略的溯源总表与交叉查阅入口。">七、附录：34 份指南来源清单</a><span class="mod-guide">附录列出 34 份指南来源清单：逐条给出指南 ID、原标题、作者、语言与对应中文笔记文件，覆盖英／简中／繁中／俄／波兰语，是整篇攻略的溯源总表与交叉查阅入口。</span></li>
+</ul></details>
+</nav>
   </aside>
   <article class="article" id="article">
 <h1 id="symphony-of-war-the-nephilim-saga">《Symphony of War: The Nephilim Saga》详尽中文攻略</h1>
